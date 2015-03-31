@@ -1,0 +1,156 @@
+// ==|== primary styles =======================================================
+// ============================================================================
+
+// Foundation
+// ----------------------------------------------------------------------------
+html {
+	font-family: 'Noticia Text', Georgia, Times, 'Times New Roman', serif;
+	color: $hsl_L0;
+}
+body {
+	position: relative;
+	background: $hsl_L100;
+}
+::selection {
+	color: $hsl_L100;
+	background-color: $hsl_blue;
+}
+
+// Transitions
+// ----------------------------------------------------------------------------
+a {
+	transition: all 0.3s ease-in-out;
+}
+svg {
+	transition: fill 0.3s ease-in-out;
+}
+// --- Animations --- \\
+@keyframes animShow {
+	0%   { opacity: 0; }
+	100% { opacity: 1; }
+}
+@keyframes animHide {
+	0%   { opacity: 1; left: 0; }
+	99%  { opacity: 0; left: 0; }
+	100% { opacity: 0; left: -200%; }
+}
+// --- FOUT --- \\
+/*
+html:not(.ie9) main,
+html:not(.ie9) header,
+html:not(.ie9) footer {
+	opacity: 0; // begin by setting opacity to 0 (if not IE9)
+	animation: animShow 0.6s ease-in-out 0.2s forwards;
+}
+*/
+
+// General Styles
+// ----------------------------------------------------------------------------
+.wrap_element {
+	position: relative;
+}
+// + SVGs + \\
+#svgInject {
+	display: none;
+	visibility: hidden;
+}
+.wrap_svg {
+	display: block;
+}
+.wrap_svg svg {
+	width: 100%;
+	height: 100%;
+}
+svg.svg_inline {
+	display: inline; // chrome does not respect the [viewBox] selector
+}
+// --- Containers --- \\
+[data-container] {
+	margin-left: auto;
+	margin-right: auto;
+}
+[data-container="width_1200"] {
+	max-width: 120rem;
+}
+
+// Buttons
+// ----------------------------------------------------------------------------
+a.button {
+	display: table; // inline-block does not allow margin centering
+	margin: 0 auto;
+	padding: 0 2rem;
+	height: 4.8rem;
+	line-height: 4.8rem;
+	font-size: 1.4rem;
+	letter-spacing: 0.2rem;
+	text-align: center;
+	text-transform: uppercase;
+	border-radius: 0.8rem;
+}
+
+a.button.black {
+}
+a.button.white {
+}
+
+a.button:hover {
+}
+a.button:active {
+}
+
+
+// --- Tag: Circle --- \\
+.tag_circle {
+	display: inline-block;
+	margin-bottom: 5.2rem;
+	color: $hsl_L0;
+	overflow: hidden;
+}
+.tag_circle .tag_text {
+	display: inline-block;
+	padding: 1.4rem 2.2rem;
+	font-size: 1.4rem;
+	letter-spacing: 0.1rem;
+	line-height: 1.4;
+	text-transform: uppercase;
+	vertical-align: middle;
+}
+.tag_circle .tag_text br {
+	display: none;
+}
+
+
+	// --- Tag: Circle --- \\
+	.tag_circle {
+		position: absolute;
+		margin-bottom: 0;
+		width: 14.6rem;
+		height: 14.6rem;
+		line-height: 14.6rem;
+		border-radius: 50%;
+	}
+	.tag_circle .tag_text {
+		padding: 2rem;
+	}
+	.tag_circle .tag_text br {
+		display: inline-block;
+	}
+
+
+// ==|== common sections ======================================================
+// ============================================================================
+
+// Header
+// ----------------------------------------------------------------------------
+header {
+	position: relative;
+}
+header div[data-container] {
+	position: relative;
+}
+
+
+// Footer
+// ----------------------------------------------------------------------------
+footer {
+}

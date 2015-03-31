@@ -1,0 +1,10 @@
+%footer{"data-container" => ""}
+
+	.wrap_svg
+		%svg.logo_cfc{:viewBox => "0 0 64 50"}
+			%use{"xlink:href" => "#logo_cfc"}
+
+	:plain
+		<h6>Visit <a href="http://www.chicken.ca/" title="Chicken Farmers of Canada" target="_blank">chicken.ca</a> for more great recipes and meal ideas.</h6>
+
+= Haml::Engine.new(File.read("dev/haml/partials/_doc_scripts.haml")).render

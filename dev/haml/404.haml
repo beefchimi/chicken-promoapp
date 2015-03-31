@@ -1,0 +1,33 @@
+!!!
+/[if IE 9] <html class="ie9" lang="en">
+<!--[if gt IE 9]><!-->
+%html{:lang => "en"}<>
+	<!--<![endif]-->
+
+	= Haml::Engine.new(File.read("dev/haml/partials/_doc_head.haml")).render
+
+	%body#error.error404
+
+		= Haml::Engine.new(File.read("dev/haml/partials/_html_header.haml")).render
+
+		%main{:role => "main"}
+
+			%section.page_articles.internal_articles{"data-container" => "width-padding_1440"}
+
+				%article
+
+					%div{"data-container" => "width_868"}
+
+						.wrap_svg.article_svg
+							%svg.ui_safety{:viewBox => "0 0 64 64"}
+								%use{"xlink:href" => "#ui_safety"}
+
+						%h2 Page not found!
+
+						%p
+							:plain
+								It appears the page you are looking for does not exist. Please return to <a href="index.html" title="Return Home">northman.co</a> or <a href="#" class="email_secret email_info" title="Send us an email">shoot us an email</a> if you can&apos;t find what you&apos;re looking for. We&apos;d be happy to help.
+
+						%a.btn_rnd.brd_orange.email_secret.email_info{:href => "#", :title => "Get In Touch"} Get In Touch
+
+		= Haml::Engine.new(File.read("dev/haml/partials/_html_footer.haml")).render
