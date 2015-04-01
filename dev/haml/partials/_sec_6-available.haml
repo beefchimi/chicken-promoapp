@@ -8,10 +8,4 @@
 			%svg.ui_devices{:viewBox => "0 0 422 154"}
 				%use{"xlink:href" => "#ui_devices"}
 
-		.links_download.clearfix
-
-			%a.button.white.download_ios{:href => "#", :title => "Download for iOS"}
-				%span Download Now for iOS
-
-			%a.button.white.download_android{:href => "#", :title => "Download for Android"}
-				%span Download Now for Android
+		= Haml::Engine.new(File.read("dev/haml/partials/_html_links-download.haml")).render

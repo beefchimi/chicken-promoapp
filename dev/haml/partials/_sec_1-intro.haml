@@ -2,17 +2,13 @@
 
 	%article{"data-container" => "width_1200"}
 
-		%h2 Shopping with chicken.ca
+		.wrap_content
 
-		%p Grocery shopping has never been easier. Our app lets you create as many lists as you like, share them with anyone at any time and includes real-time synching, so you’re always up to date. Update lists on the go and split up your shopping errands, without fear of getting the same things. An essential for anyone who grocery shops.
+			%h2 Shopping with chicken.ca
 
-		.links_download.clearfix
+			%p Grocery shopping has never been easier. Our app lets you create as many lists as you like, share them with anyone at any time and includes real-time synching, so you’re always up to date. Update lists on the go and split up your shopping errands, without fear of getting the same things. An essential for anyone who grocery shops.
 
-			%a.button.black.download_ios{:href => "#", :title => "Download for iOS"}
-				%span Download Now for iOS
-
-			%a.button.black.download_android{:href => "#", :title => "Download for Android"}
-				%span Download Now for Android
+			= Haml::Engine.new(File.read("dev/haml/partials/_html_links-download.haml")).render
 
 		.wrap_img
 			%img#img_intro.img_intro{:src => "assets/img/cfc_intro.png", :alt => "Download the app now!"}

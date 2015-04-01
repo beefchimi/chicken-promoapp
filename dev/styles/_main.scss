@@ -69,8 +69,17 @@ svg.svg_inline {
 	margin-left: auto;
 	margin-right: auto;
 }
-[data-container="width_1200"] {
+div[data-container="width_1200"] {
 	max-width: 120rem;
+}
+article[data-container="width_1200"] {
+	max-width: 56.8rem; // becomes 120rem at 768px
+}
+[data-container="width_768"] {
+	max-width: 76.8rem;
+}
+[data-container="width_520"] {
+	max-width: 36rem; // becomes 52rem at 768px
 }
 
 // Buttons
@@ -83,103 +92,21 @@ a.button {
 a.button span {
 	display: inline-block;
 	font-family: 'Sanchez';
-	font-size: 1.8rem; // 2.4rem
+	font-size: 1.8rem;
 	text-align: center;
 	line-height: 1.2;
 	vertical-align: middle;
 }
-a.button.grey {
-	color: $hsl_L14;
-	border: 0.2rem solid $hsl_L14;
-}
-a.button.black {
-	color: $hsl_L0;
-	border: 0.2rem solid $hsl_L0;
-}
-a.button.white {
-	color: $hsl_L100;
-	border: 0.2rem solid $hsl_L100;
-}
-// + interaction + \\
-a.button.grey:hover {
-	color: $hsl_red;
-	border-color: $hsl_red;
-}
-a.button.black:hover {
-	color: $hsl_L100;
-	border-color: $hsl_L100;
-}
-a.button.white:hover {
-	color: $hsl_L0;
-	border-color: $hsl_L0;
-}
-a.button.grey:active {
-	color: lighten($hsl_red, 10%);
-	border-color: lighten($hsl_red, 30%);
-}
-a.button.black:active,
-a.button.white:active {
-	opacity: 0.8;
-}
 // --- Two Column Links --- \\
-div.links_download {
-	margin-left: auto;
-	margin-right: auto;
-	width: 28.8rem; // 52rem;
-}
 div.links_download a.button {
 	float: left;
-	width: 13.6rem;
+	width: calc(50% - 0.8rem);
 }
 div.links_download a.download_ios {
 	margin-right: 1.6rem;
 }
 div.links_download a.button span {
 	font-size: 1.3rem;
-}
-// --- Circle Button --- \\
-/*
-a.button_circle {
-	display: block;
-	width: 8rem; // 11.4rem;
-	height: 8rem; // 11.4rem;
-	line-height: 8rem; // 11.4rem;
-	color: $hsl_L100;
-	background-color: $hsl_red;
-	border-radius: 50%;
-	overflow: hidden;
-}
-a.button_circle span {
-	display: inline-block;
-	// padding: 1.4rem 2.2rem;
-	font-family: 'Sanchez';
-	font-size: 1.2rem; // 1.8rem;
-	line-height: 1.2;
-	text-align: center;
-	vertical-align: middle;
-}
-*/
-a.button_circle {
-	display: block;
-	position: absolute;
-	top: 1.8rem;
-	left: 1.6rem;
-	width: 7.2rem; // 11.4rem;
-	color: $hsl_L14;
-}
-a.button_circle span {
-	display: inline-block;
-	font-family: 'Sanchez';
-	font-size: 1.3rem; // 1.8rem;
-	line-height: 1.2;
-	text-align: center;
-}
-// + interaction + \\
-a.button_circle:hover {
-	color: $hsl_red;
-}
-a.button_circle:active {
-	color: lighten($hsl_red, 10%);
 }
 
 
@@ -216,6 +143,29 @@ header a.toggle_lang:hover {
 	color: $hsl_red;
 }
 header a.toggle_lang:active {
+	color: lighten($hsl_red, 10%);
+}
+// --- Circle Button --- \\
+a.button_circle {
+	display: block;
+	position: absolute;
+	top: 1.8rem;
+	left: 1.6rem;
+	width: 7.2rem; // 11.4rem;
+	color: $hsl_L14;
+}
+a.button_circle span {
+	display: inline-block;
+	font-family: 'Sanchez';
+	font-size: 1.3rem; // 1.8rem;
+	line-height: 1.2;
+	text-align: center;
+}
+// + interaction + \\
+a.button_circle:hover {
+	color: $hsl_red;
+}
+a.button_circle:active {
 	color: lighten($hsl_red, 10%);
 }
 
@@ -264,7 +214,6 @@ section {
 	padding-right: 1.6rem;
 	text-align: center;
 }
-// section.intro,
 section.share,
 section.create,
 section.available {
@@ -286,7 +235,6 @@ section:not(.intro) p {
 	font-size: 1.5rem; // 1.6rem;
 	color: $hsl_L100;
 }
-// section:not(.intro) div.wrap_img {
 section div.wrap_img {
 	margin-top: 4rem;
 	margin-left: auto;
@@ -301,23 +249,36 @@ section.intro {
 	background-position: center center;
 	background-size: cover;
 }
-section.intro h2 {
+section.intro div.wrap_content h2 {
 	margin-bottom: 3.2rem;
 	font-family: 'Sanchez';
 	font-size: 3.6rem; // 6rem;
 	line-height: 1.2;
 }
-section.intro p {
+section.intro div.wrap_content p {
 	margin-bottom: 3.2rem;
 	font-size: 1.5rem; // 1.8rem;
 }
+// --- Intro Buttons --- \\
+section.intro a.button {
+	color: $hsl_L0;
+	border: 0.2rem solid $hsl_L0;
+}
+section.intro a.button:hover {
+	color: $hsl_L100;
+	border-color: $hsl_L100;
+}
+section.intro a.button:active {
+	opacity: 0.8;
+}
+// --- Intro Image --- \\
 section.intro div.wrap_img {
 	max-width: 28.8rem;
 }
 // + shorter height for mobile + \\
 section.intro div.wrap_img {
-	overflow-y: hidden;
 	height: 26.8rem;
+	overflow-y: hidden;
 }
 
 // Share
@@ -353,12 +314,28 @@ section.create h3,
 section.create p {
 	color: $hsl_L14;
 }
+section.create h3 br:nth-child(2) {
+	display: none;
+}
 section.create div.wrap_img {
-	margin-bottom: 3.2rem;
+	margin-bottom: 4rem;
 	max-width: 41.6rem;
 }
 section.create p {
-	margin-bottom: 3.2rem;
+	margin-bottom: 4rem;
+}
+// --- Create Buttons --- \\
+section.create a.button {
+	color: $hsl_L14;
+	border: 0.2rem solid $hsl_L14;
+}
+section.create a.button:hover {
+	color: $hsl_red;
+	border-color: $hsl_red;
+}
+section.create a.button:active {
+	color: lighten($hsl_red, 10%);
+	border-color: lighten($hsl_red, 30%);
 }
 
 // Available
@@ -367,18 +344,30 @@ section.available {
 	background-color: $hsl_purple;
 }
 section.available h4 {
-	margin-bottom: 3.2rem;
+	margin-bottom: 4rem;
 	font-family: 'Sanchez';
 	font-size: 2rem; // 2.8rem;
 	line-height: 1.2;
 	color: $hsl_L100;
 }
 section.available div.wrap_svg {
-	margin-bottom: 3.2rem;
+	margin-bottom: 4rem;
 	margin-left: auto;
 	margin-right: auto;
 	max-width: 42.2rem;
 }
 section.available div.wrap_svg svg {
 	fill: $hsl_L100;
+}
+// --- Available Buttons --- \\
+section.available a.button {
+	color: $hsl_L100;
+	border: 0.2rem solid $hsl_L100;
+}
+section.available a.button:hover {
+	color: $hsl_L0;
+	border-color: $hsl_L0;
+}
+section.available a.button:active {
+	opacity: 0.8;
 }
