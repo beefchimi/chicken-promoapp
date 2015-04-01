@@ -16,7 +16,7 @@
 			= Haml::Engine.new(File.read("dev/haml/partials/_sec_2-share.haml")).render
 			= Haml::Engine.new(File.read("dev/haml/partials/_sec_3-sync.haml")).render
 			= Haml::Engine.new(File.read("dev/haml/partials/_sec_4-shop.haml")).render
-			-# = Haml::Engine.new(File.read("dev/haml/partials/_sec_5-create.haml")).render
-			-# = Haml::Engine.new(File.read("dev/haml/partials/_sec_6-available.haml")).render
+			= Haml::Engine.new(File.read("dev/haml/partials/_sec_5-create.haml")).render
+			= Haml::Engine.new(File.read("dev/haml/partials/_sec_6-available.haml")).render
 
 		= Haml::Engine.new(File.read("dev/haml/partials/_html_footer.haml")).render

@@ -1,4 +1,4 @@
-%section#available
+%section#available.available
 
 	%article{"data-container" => "width_1200"}
 
@@ -8,8 +8,10 @@
 			%svg.ui_devices{:viewBox => "0 0 422 154"}
 				%use{"xlink:href" => "#ui_devices"}
 
-		%a.button.white{:href => "#", :title => "Download Now for iOS"}
-			%span Download Now for iOS
+		.links_download.clearfix
 
-		%a.button.white{:href => "#", :title => "Download Now for Android"}
-			%span Download Now for Android
+			%a.button.white.download_ios{:href => "#", :title => "Download for iOS"}
+				%span Download Now for iOS
+
+			%a.button.white.download_android{:href => "#", :title => "Download for Android"}
+				%span Download Now for Android
