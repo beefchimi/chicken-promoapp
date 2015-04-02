@@ -1,16 +1,5 @@
 // ==|== media queries ========================================================
-// WIDTHS: 480px / 568px / 768px / 960px
 // ============================================================================
-
-@media only screen and (min-width: 30em) { // 480px / 16px = 30em
-
-
-}
-
-@media only screen and (min-width: 35.5em) { // 568px / 16px = 35.5em
-
-
-}
 
 @media only screen and (min-width: 48em) { // 768px / 16px = 48em
 
@@ -30,7 +19,7 @@
 	// Buttons
 	// ----------------------------------------------------------------------------
 	a.button {
-		padding: 2.2rem;
+		padding: 2rem 2.2rem;
 	}
 	a.button span {
 		font-size: 2.4rem
@@ -62,7 +51,7 @@
 		left: 3.2rem;
 		width: 11.4rem;
 		height: 11.4rem;
-		line-height: 11.4rem;
+		line-height: 11rem; // less than height to appear visually centered
 		color: $hsl_L100;
 		background-color: $hsl_red;
 		border-radius: 50%;
@@ -90,17 +79,57 @@
 
 	// Sections
 	// ----------------------------------------------------------------------------
-	section[class] { // required specificity of [class] attribute to target padding-bottom
-		padding: 6rem 3.2rem;
+	section {
+		padding-left: 3.2rem;
+		padding-right: 3.2rem;
 	}
-	section article[data-container] {
+	section[class] article { // required specificity of [class] attribute to target padding-bottom
 		position: relative;
+		padding-top: 6rem;
+		padding-bottom: 6rem;
 	}
 	section.intro,
 	section.share,
 	section.sync,
 	section.shop {
 		text-align: left;
+	}
+	section.share article,
+	section.sync article,
+	section.shop article {
+		min-height: 31rem;
+	}
+	section.share article div.wrap_content,
+	section.sync article div.wrap_content,
+	section.shop article div.wrap_content {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+	}
+	section.share div.wrap_content,
+	section.shop div.wrap_content {
+		padding-left: 23.4rem;
+	}
+	section.sync div.wrap_content {
+		padding-right: 30.6rem;
+	}
+	section.share div.wrap_img,
+	section.sync div.wrap_img,
+	section.shop div.wrap_img {
+		position: absolute;
+	}
+	section.share div.wrap_img {
+		top: 50%;
+		left: 0;
+		transform: translateY(-50%);
+	}
+	section.sync div.wrap_img {
+		bottom: 0;
+		right: 0;
+	}
+	section.shop div.wrap_img {
+		bottom: 0;
+		left: 0;
 	}
 	section h3 {
 		margin-bottom: 3.2rem;
@@ -117,11 +146,9 @@
 	// ----------------------------------------------------------------------------
 	section.intro div.wrap_content {
 		width: calc(100% - 32rem);
-		// margin-bottom: 4rem;
 	}
 	section.intro div.wrap_content h2 {
-		// margin-bottom: 3.2rem;
-		font-size: 3.8rem; // 6rem;
+		font-size: 3.8rem;
 		white-space: nowrap;
 	}
 	section.intro div.wrap_content p {
@@ -135,54 +162,14 @@
 	// --- Intro Image --- \\
 	section.intro div.wrap_img {
 		position: absolute;
-		bottom: -6rem;
+		bottom: 0;
 		right: 0;
-		// max-width: 28.8rem;
 	}
 	// + shorter height for mobile + \\
 	section.intro div.wrap_img {
 		height: auto;
 		overflow-y: visible;
 	}
-
-
-
-	// Share
-	// ----------------------------------------------------------------------------
-	section.share div.wrap_content {
-		padding-left: 23.4rem;
-	}
-	section.share div.wrap_img {
-		position: absolute;
-		top: 0;
-		left: 0;
-	}
-
-
-	// Sync
-	// ----------------------------------------------------------------------------
-	section.sync div.wrap_content {
-		padding-right: 30.6rem;
-	}
-	section.sync div.wrap_img {
-		position: absolute;
-		bottom: -6rem;
-		right: 0;
-	}
-
-
-	// Shop
-	// ----------------------------------------------------------------------------
-	section.shop div.wrap_content {
-		padding-left: 23.4rem;
-	}
-	section.shop div.wrap_img {
-		position: absolute;
-		bottom: -6rem;
-		left: 0;
-	}
-
-
 
 	// Create
 	// ----------------------------------------------------------------------------
@@ -193,16 +180,133 @@
 		display: block;
 	}
 
+}
 
+@media only screen and (min-width: 56.25em) { // 900px / 16px = 56.25em
+
+// ==|== primary styles =======================================================
+// ============================================================================
+
+	// Buttons
+	// ----------------------------------------------------------------------------
+	// --- Two Column Links --- \\
+	div.links_download a.button span {
+		font-size: 2.4rem;
+	}
+
+// ==|== sections =============================================================
+// ============================================================================
+
+	// Intro
+	// ----------------------------------------------------------------------------
+	section.intro div.wrap_content {
+		width: 52rem;
+	}
+	section.intro div.wrap_content h2 {
+		font-size: 5.2rem;
+		white-space: normal;
+	}
+	section.intro div.wrap_content p {
+		margin-bottom: 6rem;
+	}
+	// --- Intro Image --- \\
+	section.intro div.wrap_img {
+		width: calc(100% - 56rem);
+		max-width: 65rem;
+	}
+
+	// Create
+	// ----------------------------------------------------------------------------
+	section.create div.wrap_img {
+		margin-top: 6rem;
+		margin-bottom: 6rem;
+	}
+	section.create p {
+		margin-bottom: 6rem;
+	}
+
+	// Available
+	// ----------------------------------------------------------------------------
+	section.available h4 {
+		margin-bottom: 6rem;
+		font-size: 2.8rem;
+	}
+	section.available h4 br {
+		display: block;
+	}
+	section.available div.wrap_svg {
+		margin-bottom: 6rem;
+	}
 
 }
 
 @media only screen and (min-width: 60em) { // 960px / 16px = 60em
 
+// ==|== primary styles =======================================================
+// ============================================================================
+
+	// Buttons
+	// ----------------------------------------------------------------------------
+	// --- Two Column Links --- \\
+	div.links_download a.button {
+		width: calc(50% - 1.2rem);
+	}
+	div.links_download a.download_ios {
+		margin-right: 2.4rem;
+	}
+
+// ==|== sections =============================================================
+// ============================================================================
+
+	// Intro
+	// ----------------------------------------------------------------------------
+	section.intro div.wrap_content h2 {
+		margin-bottom: 4rem;
+		font-size: 6rem;
+	}
 
 }
 
 @media only screen and (min-width: 75em) { // 1200px / 16px = 75em
 
+// ==|== sections =============================================================
+// ============================================================================
+
+	// Header
+	// ----------------------------------------------------------------------------
+	header a.toggle_lang {
+		right: 7.2rem;
+	}
+
+	// Sections
+	// ----------------------------------------------------------------------------
+	section.share div.wrap_content,
+	section.shop div.wrap_content {
+		padding-left: 32.4rem;
+	}
+	section.sync div.wrap_content {
+		padding-left: 16rem;
+		padding-right: 0;
+	}
+	section.share div.wrap_img,
+	section.shop div.wrap_img {
+		left: 6.4rem;
+	}
+	section.sync div.wrap_img {
+		right: 6.4rem;
+	}
+
+	// Intro
+	// ----------------------------------------------------------------------------
+	section.intro article {
+		padding-top: 13.6rem;
+		padding-bottom: 16.8rem;
+	}
+
+	// Sync
+	// ----------------------------------------------------------------------------
+	section.sync div.wrap_content p br {
+		display: block;
+	}
 
 }
