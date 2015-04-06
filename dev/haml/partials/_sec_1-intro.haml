@@ -1,5 +1,7 @@
 %section#intro.intro
 
+	#intro_background.intro_background
+
 	%article{"data-container" => "width_1200"}
 
 		.wrap_content
@@ -10,5 +12,8 @@
 
 			= Haml::Engine.new(File.read("dev/haml/partials/_html_links-download.haml")).render
 
-		.wrap_img
-			%img#img_intro.img_intro{:src => "assets/img/cfc_intro.png", :alt => "Download the app now!"}
+		.wrap_phones-outer
+			.wrap_phones-inner
+				%img.img_intro-placeholder{:src => "assets/img/cfc_intro-placeholder.png", :alt => ""}
+				%img#img_intro-android.img_intro-android{:src => "assets/img/cfc_intro-android.png", :alt => "Download the app on Android"}
+				%img#img_intro-ios.img_intro-ios{:src => "assets/img/cfc_intro-ios.png", :alt => "Download the app on iOS"}

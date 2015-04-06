@@ -18,8 +18,9 @@ body {
 
 // Transitions
 // ----------------------------------------------------------------------------
-a {
-	transition: all 0.3s ease-in-out;
+header a,
+footer a {
+	transition: color 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 svg {
 	transition: fill 0.3s ease-in-out;
@@ -35,12 +36,21 @@ svg {
 	100% { opacity: 0; left: -200%; }
 }
 // --- FOUT --- \\
-/*
+html:not(.ie9) header {
+	opacity: 0; // begin by setting opacity to 0 (if not IE9)
+	animation: animShow 0.8s ease-in-out 0s forwards;
+}
 html:not(.ie9) main,
-html:not(.ie9) header,
 html:not(.ie9) footer {
 	opacity: 0; // begin by setting opacity to 0 (if not IE9)
-	animation: animShow 0.6s ease-in-out 0.2s forwards;
+	animation: animShow 0.6s ease-in-out 0.4s forwards;
+}
+
+
+/*
+html:not(.ie9) body {
+	opacity: 0; // begin by setting opacity to 0 (if not IE9)
+	animation: animShow 1s ease-in-out 0s forwards;
 }
 */
 
@@ -70,6 +80,7 @@ svg.svg_inline {
 	margin-right: auto;
 }
 div[data-container="width_1200"] {
+	position: relative;
 	max-width: 120rem;
 }
 article[data-container="width_1200"] {
@@ -110,20 +121,34 @@ div.links_download a.button span {
 }
 
 
+html[data-load="loading"] div.links_download a.button {
+	opacity: 0;
+	transform: translateY(1rem);
+}
+html[data-load="ready"] div.links_download a.button {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+
+
+div.links_download a.download_ios {
+	transition: color 0.3s ease-in-out, border-color 0.3s ease-in-out, opacity 0.6s ease-in-out 0.4s, transform 0.6s ease-in-out 0.4s;
+}
+div.links_download a.download_android {
+	transition: color 0.3s ease-in-out, border-color 0.3s ease-in-out, opacity 0.6s ease-in-out 0.6s, transform 0.6s ease-in-out 0.6s;
+}
+
+
 // ==|== sections =============================================================
 // ============================================================================
 
 // Header
 // ----------------------------------------------------------------------------
 header {
-	position: relative;
-	padding-top: 2.6rem;
-	padding-bottom: 2.6rem;
+	padding: 2.6rem 1.6rem;
 }
-header div[data-container] {
-	position: relative;
-}
-header div[data-container] div.wrap_svg {
+header div.wrap_svg {
 	margin-left: auto;
 	margin-right: auto;
 	width: 6rem;
@@ -150,7 +175,8 @@ a.button_circle {
 	display: block;
 	position: absolute;
 	top: 1.8rem;
-	left: 1.6rem;
+	left: 0;
+	// left: 1.6rem;
 	width: 7.2rem;
 	color: $hsl_L14;
 }
@@ -212,6 +238,7 @@ section {
 	padding-left: 1.6rem;
 	padding-right: 1.6rem;
 	text-align: center;
+	overflow: hidden;
 }
 section article {
 	padding-top: 4rem;
@@ -251,6 +278,16 @@ section div.wrap_img {
 // Intro
 // ----------------------------------------------------------------------------
 section.intro {
+	position: relative;
+}
+section.intro div.intro_background {
+	position: absolute;
+	top: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 100%;
+	height: 101%; // avoid thin white bottom gap
+	// height: 110%;
 	background-image: url('../img/cfc_background.png');
 	background-repeat: no-repeat;
 	background-position: center center;
@@ -279,14 +316,85 @@ section.intro a.button:active {
 	opacity: 0.8;
 }
 // --- Intro Image --- \\
-section.intro div.wrap_img {
-	max-width: 28.8rem;
-}
-// + shorter height for mobile + \\
-section.intro div.wrap_img {
+section.intro div.wrap_phones-outer {
+	margin: 4rem auto 0 auto;
+	width: 28.8rem;
 	height: 26.8rem;
-	overflow-y: hidden;
 }
+section.intro div.wrap_phones-outer div.wrap_phones-inner {
+	position: relative;
+	z-index: 1;
+	height: 32.5rem;
+}
+section.intro div.wrap_phones-outer div.wrap_phones-inner img.img_intro-ios,
+section.intro div.wrap_phones-outer div.wrap_phones-inner img.img_intro-android {
+	position: absolute;
+	bottom: 0;
+}
+section.intro div.wrap_phones-outer div.wrap_phones-inner img.img_intro-android {
+	z-index: 2;
+	left: 0;
+	width: 52.083333%; // 150 / 288 = 0.52083333
+}
+section.intro div.wrap_phones-outer div.wrap_phones-inner img.img_intro-ios {
+	z-index: 3;
+	right: -0.2rem;
+	width: 75.694444%; // 218 / 288 = 0.75694444
+}
+
+
+
+
+// --- Transition: Intro --- \\
+/*
+section.intro div.intro_background {
+	// transition: width 0.2s ease-in-out;
+	// transition: top 0.3s ease-in-out;
+	transition: width 0.1s linear;
+}
+*/
+section.intro div.wrap_content h2 {
+	transition: opacity 0.6s ease-in-out 0s, transform 0.6s ease-in-out 0s;
+}
+section.intro div.wrap_content p {
+	transition: opacity 0.6s ease-in-out 0.2s, transform 0.6s ease-in-out 0.2s;
+}
+section.intro div.wrap_phones-outer div.wrap_phones-inner img.img_intro-ios {
+	transition: opacity 0.6s ease-in-out 0.2s, transform 0.6s ease-in-out 0.2s;
+}
+section.intro div.wrap_phones-outer div.wrap_phones-inner img.img_intro-android {
+	transition: opacity 0.6s ease-in-out 0.6s, transform 0.6s ease-in-out 0.6s;
+}
+// --- Inactive: Intro --- \\
+html[data-load="loading"] section.intro div.wrap_content h2,
+html[data-load="loading"] section.intro div.wrap_content p {
+	opacity: 0;
+	transform: translateY(1rem);
+}
+html[data-load="loading"] section.intro div.wrap_phones-outer div.wrap_phones-inner img.img_intro-ios,
+html[data-load="loading"] section.intro div.wrap_phones-outer div.wrap_phones-inner img.img_intro-android {
+	opacity: 0;
+	transform: translateX(1rem);
+}
+// --- Active: Intro --- \\
+/*
+html[data-load="ready"] section.intro div.intro_background {
+	width: 110%;
+}
+*/
+html[data-load="ready"] section.intro div.wrap_content h2,
+html[data-load="ready"] section.intro div.wrap_content p {
+	opacity: 1;
+	transform: translateY(0rem);
+}
+html[data-load="ready"] section.intro div.wrap_phones-outer div.wrap_phones-inner img.img_intro-ios,
+html[data-load="ready"] section.intro div.wrap_phones-outer div.wrap_phones-inner img.img_intro-android {
+	opacity: 1;
+	transform: translateX(0rem);
+}
+
+
+
 
 // Share
 // ----------------------------------------------------------------------------
@@ -295,6 +403,30 @@ section.share {
 }
 section.share div.wrap_img {
 	max-width: 20.2rem;
+}
+// --- Transition: Share --- \\
+section.share div.wrap_content h3 {
+	transition: opacity 0.6s ease-in-out 0.2s, transform 0.6s ease-in-out 0.2s;
+}
+section.share div.wrap_content p {
+	transition: opacity 0.6s ease-in-out 0.4s, transform 0.6s ease-in-out 0.4s;
+}
+section.share div.wrap_img {
+	transition: opacity 0.6s ease-in-out 0.6s, transform 0.6s ease-in-out 0.6s;
+}
+// --- Inactive: Share --- \\
+section.share div.wrap_content h3,
+section.share div.wrap_content p,
+section.share div.wrap_img {
+	opacity: 0;
+	transform: translateY(1rem);
+}
+// --- Active: Share --- \\
+body.active_share section.share div.wrap_content h3,
+body.active_share section.share div.wrap_content p,
+body.active_share section.share div.wrap_img {
+	opacity: 1;
+	transform: translateY(0);
 }
 
 // Sync
@@ -305,8 +437,64 @@ section.sync {
 section.sync div.wrap_content p br {
 	display: none;
 }
-section.sync div.wrap_img {
-	max-width: 27.4rem;
+// --- Sync Image --- \\
+section.sync div.wrap_phones-outer {
+	margin: 4rem auto 0 auto;
+	width: 27.1rem;
+}
+section.sync div.wrap_phones-outer div.wrap_phones-inner {
+	position: relative;
+	z-index: 1;
+}
+section.sync div.wrap_phones-outer div.wrap_phones-inner img.img_sync-ios,
+section.sync div.wrap_phones-outer div.wrap_phones-inner img.img_sync-android {
+	position: absolute;
+	bottom: 0;
+}
+section.sync div.wrap_phones-outer div.wrap_phones-inner img.img_sync-android {
+	z-index: 2;
+	right: 0;
+	width: 59.778598%; // 324 / 542 = 0.59778598
+}
+section.sync div.wrap_phones-outer div.wrap_phones-inner img.img_sync-ios {
+	z-index: 3;
+	left: 0;
+	width: 65.682657%; // 356 / 542 = 0.65682657
+}
+// --- Transition: Sync --- \\
+section.sync div.wrap_content h3 {
+	transition: opacity 0.6s ease-in-out 0.2s, transform 0.6s ease-in-out 0.2s;
+}
+section.sync div.wrap_content p {
+	transition: opacity 0.6s ease-in-out 0.4s, transform 0.6s ease-in-out 0.4s;
+}
+section.sync div.wrap_phones-outer div.wrap_phones-inner img.img_sync-ios {
+	transition: opacity 0.6s ease-in-out 0.6s, transform 0.6s ease-in-out 0.6s;
+}
+section.sync div.wrap_phones-outer div.wrap_phones-inner img.img_sync-android {
+	transition: opacity 0.6s ease-in-out 1s, transform 0.6s ease-in-out 1s;
+}
+// --- Inactive: Sync --- \\
+section.sync div.wrap_content h3,
+section.sync div.wrap_content p {
+	opacity: 0;
+	transform: translateY(1rem);
+}
+section.sync div.wrap_phones-outer div.wrap_phones-inner img.img_sync-ios,
+section.sync div.wrap_phones-outer div.wrap_phones-inner img.img_sync-android {
+	opacity: 0;
+	transform: translateX(-1rem);
+}
+// --- Active: Sync --- \\
+body.active_sync section.sync div.wrap_content h3,
+body.active_sync section.sync div.wrap_content p {
+	opacity: 1;
+	transform: translateY(0);
+}
+body.active_sync section.sync div.wrap_phones-outer div.wrap_phones-inner img.img_sync-ios,
+body.active_sync section.sync div.wrap_phones-outer div.wrap_phones-inner img.img_sync-android {
+	opacity: 1;
+	transform: translateX(0rem);
 }
 
 // Shop
@@ -316,6 +504,33 @@ section.shop {
 }
 section.shop div.wrap_img {
 	max-width: 17.6rem;
+}
+// --- Transition: Shop --- \\
+section.shop div.wrap_content h3 {
+	transition: opacity 0.6s ease-in-out 0.2s, transform 0.6s ease-in-out 0.2s;
+}
+section.shop div.wrap_content p {
+	transition: opacity 0.6s ease-in-out 0.4s, transform 0.6s ease-in-out 0.4s;
+}
+section.shop div.wrap_img {
+	transition: opacity 0.6s ease-in-out 0.6s, transform 0.6s ease-in-out 0.6s;
+}
+// --- Inactive: Shop --- \\
+section.shop div.wrap_content h3,
+section.shop div.wrap_content p {
+	opacity: 0;
+	transform: translateY(1rem);
+}
+section.shop div.wrap_img {
+	opacity: 0;
+	transform: translateY(2rem);
+}
+// --- Active: Shop --- \\
+body.active_shop section.shop div.wrap_content h3,
+body.active_shop section.shop div.wrap_content p,
+body.active_shop section.shop div.wrap_img {
+	opacity: 1;
+	transform: translateY(0);
 }
 
 // Create
@@ -347,6 +562,43 @@ section.create a.button:active {
 	color: lighten($hsl_red, 10%);
 	border-color: lighten($hsl_red, 30%);
 }
+
+
+
+// --- Transition: Create --- \\
+section.create h3 {
+	transition: opacity 0.6s ease-in-out 0.2s, transform 0.6s ease-in-out 0.2s;
+}
+section.create div.wrap_img {
+	transition: opacity 0.6s ease-in-out 0.4s, transform 0.6s ease-in-out 0.4s;
+}
+section.create p {
+	transition: opacity 0.6s ease-in-out 0.6s, transform 0.6s ease-in-out 0.6s;
+}
+section.create a.button {
+	transition: color 0.3s ease-in-out, border-color 0.3s ease-in-out, opacity 0.6s ease-in-out 0.8s, transform 0.6s ease-in-out 0.8s;
+}
+
+
+// --- Inactive: Create --- \\
+section.create p,
+section.create h3,
+section.create a.button,
+section.create div.wrap_img {
+	opacity: 0;
+	transform: translateY(1rem);
+}
+// --- Active: Create --- \\
+body.active_create section.create p,
+body.active_create section.create h3,
+body.active_create section.create a.button,
+body.active_create section.create div.wrap_img {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+
+
 
 // Available
 // ----------------------------------------------------------------------------
