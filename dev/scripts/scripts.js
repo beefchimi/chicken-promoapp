@@ -8,28 +8,32 @@ document.addEventListener('DOMContentLoaded', function() {
 		transitionEvent   = whichTransitionEvent(),
 		animationEvent    = whichAnimationEvent();
 
-	var elIntroBackground = document.getElementById('intro_background');
-
-	var arrSectionData = [
-		{ title:'header',    numHeight:0, numStart:0 },
-		{ title:'intro',     numHeight:0, numStart:0 },
-		{ title:'share',     numHeight:0, numStart:0 },
-		{ title:'sync',      numHeight:0, numStart:0 },
-		{ title:'shop',      numHeight:0, numStart:0 },
-		{ title:'create',    numHeight:0, numStart:0 },
-		{ title:'available', numHeight:0, numStart:0 },
-		{ title:'footer',    numHeight:0, numStart:0 }
-	];
-
-	var numSections = arrSectionData.length;
-
-	// scroll, touch, and height variables
+	// scroll and window variables
 	var numScrollPos       = window.pageYOffset,
+		numWindowWidth     = window.innerWidth,
 		numWindowHeight    = window.innerHeight,
 		numScrollBottomPos = numScrollPos + numWindowHeight,
-		numDocumentHeight  = elBody.clientHeight;
+		numDocumentHeight  = elBody.clientHeight,
+		numIntroScrollPos  = 0,
+		boolScrolled       = false;
 
-	var fullyScrolled = false; // used to determine if we will run trackSection()
+	// section data
+	var arrSectionData = [
+			{ title:'header',    numHeight:0, numStart:0 },
+			{ title:'intro',     numHeight:0, numStart:0 },
+			{ title:'share',     numHeight:0, numStart:0 },
+			{ title:'sync',      numHeight:0, numStart:0 },
+			{ title:'shop',      numHeight:0, numStart:0 },
+			{ title:'create',    numHeight:0, numStart:0 },
+			{ title:'available', numHeight:0, numStart:0 },
+			{ title:'footer',    numHeight:0, numStart:0 }
+		],
+		numSections = arrSectionData.length;
+
+	// intro elements
+	var elIntroBackground = document.getElementById('intro_background'),
+		elIntroAndroid    = document.getElementById('img_intro-android'),
+		elIntroIOS        = document.getElementById('img_intro-ios');
 
 
 	// Helper: Check when a CSS transition or animation has ended
@@ -102,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		var ajax = new XMLHttpRequest();
 
-		ajax.open('GET', 'assets/img/svg.svg', true);
+		ajax.open('GET', 'assets/img/svg.svg?v=1', true);
 		ajax.send();
 		ajax.onload = function(e) {
 
@@ -112,6 +116,42 @@ document.addEventListener('DOMContentLoaded', function() {
 			document.body.insertBefore(div, document.body.childNodes[0]);
 
 		}
+
+	}
+
+	// waitForImages: Wait until images are loaded
+	// ----------------------------------------------------------------------------
+	function waitForImages() {
+
+		// the rest of the code does not apply to IE9, so exit
+		if ( classie.has(elHTML, 'ie9') ) {
+			return;
+		}
+
+		var 	elLoader       = document.getElementById('loader_overlay'),
+			elPreloadImage = document.getElementById('preload_background');
+
+		// listen for the end of <header> fadeIn animation
+		elLoader.addEventListener(transitionEvent, removeLoader);
+
+		function removeLoader() {
+
+			// remove the event listener from the loader
+			elLoader.removeEventListener(transitionEvent, removeLoader);
+
+			// remove any unneeded elements
+			elBody.removeChild(elLoader);
+			elPreloadImage.parentNode.removeChild(elPreloadImage);
+
+			// page is now fully ready to go
+			elHTML.setAttribute('data-page', 'ready');
+
+		}
+
+		// layout Packery after all images have loaded
+		imagesLoaded(elBody, function(instance) {
+			elHTML.setAttribute('data-images', 'loaded');
+		});
 
 	}
 
@@ -132,23 +172,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		// calculate values for all sections
 		measureSectionHeight();
-
-		// the rest of the code does not apply to IE9, so exit
-		if ( classie.has(elHTML, 'ie9') ) {
-			return;
-		}
-
-		var 	elHeader = document.getElementsByTagName('header')[0];
-
-		// listen for the end of <header> fadeIn animation
-		elHeader.addEventListener(animationEvent, removeFOUT);
-
-		function removeFOUT() {
-
-			elHTML.setAttribute('data-load', 'ready');
-			elHeader.removeEventListener(animationEvent, removeFOUT);
-
-		}
 
 	}
 
@@ -181,7 +204,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	// ----------------------------------------------------------------------------
 	function trackSection() {
 
-		if (fullyScrolled) {
+		if (boolScrolled) {
 			return;
 		}
 
@@ -193,33 +216,27 @@ document.addEventListener('DOMContentLoaded', function() {
 				classie.add(elBody, 'active_' + thisSection.title);
 			}
 
-/*
-			else {
-				classie.remove(elBody, 'active_' + thisSection.title);
-			}
-*/
-
 		}
 
 	}
 
 
+	// introScroll: Subtle parralax for intro section
+	// ----------------------------------------------------------------------------
+	function introScroll() {
 
-/*
-	function testScroll() {
+		// if the current scroll position is less than the starting position of section.share
+		if (numScrollPos < arrSectionData[2].numStart && numWindowWidth >= 960) {
 
-		if (numScrollPos < numPosHeader) {
+			numIntroScrollPos = numScrollPos / numDocumentHeight * 100;
+			elIntroBackground.style.top = (numIntroScrollPos * 4) + 'px';
 
-			// console.log();
-
-			elIntroBackground.style.width = 100 + numCurrentScrollPercent + '%';
-
-			// elIntroBackground.style.top = -(numCurrentScrollPercent * 2) + 'px';
+			elIntroAndroid.style.left = -(numIntroScrollPos / 3) + 'px';
+			elIntroIOS.style.right = -(numIntroScrollPos / 3) + 'px';
 
 		}
 
 	}
-*/
 
 
 	// Window Events: On - Scroll, Resize
@@ -230,11 +247,13 @@ document.addEventListener('DOMContentLoaded', function() {
 		numScrollPos = window.pageYOffset;
 		numScrollBottomPos = numScrollPos + numWindowHeight;
 
+		// once we have scrolled the entire document, set boolScrolled to true
 		if (numScrollBottomPos === numDocumentHeight) {
-			fullyScrolled = true;
+			boolScrolled = true;
 		}
 
 		trackSection();
+		introScroll();
 
 	}, false);
 
@@ -243,7 +262,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		// do not fire resize event for every pixel... wait until finished
 		waitForFinalEvent(function() {
 
-			// recalculate window height on resize
+			// recalculate window width & height on resize
+			numWindowWidth  = window.innerWidth;
 			numWindowHeight = window.innerHeight;
 
 			// re-establish which sections are active
@@ -256,6 +276,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	// Initialize Primary Functions
 	// ----------------------------------------------------------------------------
+	waitForImages();
 	pageLoaded();
 
 

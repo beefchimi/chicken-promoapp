@@ -20,10 +20,13 @@ body {
 // ----------------------------------------------------------------------------
 header a,
 footer a {
-	transition: color 0.3s ease-in-out, opacity 0.3s ease-in-out;
+	transition: all 0.3s ease-in-out;
 }
 svg {
 	transition: fill 0.3s ease-in-out;
+}
+div.loader_overlay {
+	transition: opacity 0.8s ease-in-out;
 }
 // --- Animations --- \\
 @keyframes animShow {
@@ -35,24 +38,30 @@ svg {
 	99%  { opacity: 0; left: 0; }
 	100% { opacity: 0; left: -200%; }
 }
-// --- FOUT --- \\
-html:not(.ie9) header {
-	opacity: 0; // begin by setting opacity to 0 (if not IE9)
-	animation: animShow 0.8s ease-in-out 0s forwards;
+@keyframes anim360 {
+	to {
+		transform: rotate(360deg);
+	}
 }
-html:not(.ie9) main,
-html:not(.ie9) footer {
-	opacity: 0; // begin by setting opacity to 0 (if not IE9)
-	animation: animShow 0.6s ease-in-out 0.4s forwards;
-}
-
 
 /*
-html:not(.ie9) body {
+// --- FOUT --- \\
+html:not(.ie9) body header {
 	opacity: 0; // begin by setting opacity to 0 (if not IE9)
-	animation: animShow 1s ease-in-out 0s forwards;
+}
+html:not(.ie9) body main,
+html:not(.ie9) body footer {
+	opacity: 0; // begin by setting opacity to 0 (if not IE9)
+}
+html:not(.ie9) body.images-loaded header {
+	animation: animShow 0.8s ease-in-out 0s forwards;
+}
+html:not(.ie9) body.images-loaded main,
+html:not(.ie9) body.images-loaded footer {
+	animation: animShow 0.6s ease-in-out 0.4s forwards;
 }
 */
+
 
 // General Styles
 // ----------------------------------------------------------------------------
@@ -93,6 +102,49 @@ article[data-container="width_1200"] {
 	max-width: 36rem; // becomes 52rem at 768px
 }
 
+// CSS Loader
+// ----------------------------------------------------------------------------
+div.loader_overlay {
+	position: fixed;
+	z-index: 900;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background-color: $hsl_L100;
+	opacity: 1;
+	// visibility: hidden; // webkit will stop the animation if visibility is changed
+	overflow: hidden;
+	pointer-events: none;
+}
+div.loader_overlay div.wrap_svg {
+	position: absolute;
+	z-index: 911;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	margin: auto;
+	width: 4.4rem;
+	height: 4.4rem;
+	animation: anim360 1s linear infinite forwards;
+}
+div.loader_overlay div.wrap_svg svg {
+	fill: $hsl_blue;
+}
+// + waiting & loaded + \\
+html[data-images="waiting"],
+html[data-images="waiting"] body {
+	overflow-y: hidden;
+}
+html[data-images="loaded"],
+html[data-images="loaded"] body {
+	overflow-y: visible;
+}
+html[data-images="loaded"] div.loader_overlay {
+	opacity: 0;
+}
+
 // Buttons
 // ----------------------------------------------------------------------------
 a.button {
@@ -118,25 +170,6 @@ div.links_download a.download_ios {
 }
 div.links_download a.button span {
 	font-size: 1.3rem;
-}
-
-
-html[data-load="loading"] div.links_download a.button {
-	opacity: 0;
-	transform: translateY(1rem);
-}
-html[data-load="ready"] div.links_download a.button {
-	opacity: 1;
-	transform: translateY(0);
-}
-
-
-
-div.links_download a.download_ios {
-	transition: color 0.3s ease-in-out, border-color 0.3s ease-in-out, opacity 0.6s ease-in-out 0.4s, transform 0.6s ease-in-out 0.4s;
-}
-div.links_download a.download_android {
-	transition: color 0.3s ease-in-out, border-color 0.3s ease-in-out, opacity 0.6s ease-in-out 0.6s, transform 0.6s ease-in-out 0.6s;
 }
 
 
@@ -176,7 +209,6 @@ a.button_circle {
 	position: absolute;
 	top: 1.8rem;
 	left: 0;
-	// left: 1.6rem;
 	width: 7.2rem;
 	color: $hsl_L14;
 }
@@ -240,13 +272,8 @@ section {
 	text-align: center;
 	overflow: hidden;
 }
-section article {
+article {
 	padding-top: 4rem;
-}
-section.share article,
-section.create article,
-section.available article {
-	padding-bottom: 4rem;
 }
 section p {
 	line-height: 1.4;
@@ -256,6 +283,24 @@ section h3 {
 	font-size: 3.2rem;
 	line-height: 1.2;
 }
+// + wrap image + \\
+section div.wrap_img {
+	margin-top: 4rem;
+	margin-left: auto;
+	margin-right: auto;
+}
+// + inclusions + \\
+section.share article,
+section.create article,
+section.available article {
+	padding-bottom: 4rem;
+}
+section.share p,
+section.sync p,
+section.shop p {
+	max-width: 62.4rem;
+}
+// + exclusions + \\
 section:not(.create) h3 {
 	margin-bottom: 2rem;
 	color: $hsl_L100;
@@ -264,15 +309,24 @@ section:not(.intro) p {
 	font-size: 1.5rem;
 	color: $hsl_L100;
 }
-section.share p,
-section.sync p,
-section.shop p {
-	max-width: 62.4rem;
+// --- Two Phones --- \\
+div.wrap_phones-outer {
+	margin: 4rem auto 0 auto;
 }
-section div.wrap_img {
-	margin-top: 4rem;
-	margin-left: auto;
-	margin-right: auto;
+div.wrap_phones-inner {
+	position: relative;
+	z-index: 1;
+}
+img.back,
+img.front {
+	position: absolute;
+	bottom: 0;
+}
+img.back {
+	z-index: 2;
+}
+img.front {
+	z-index: 3;
 }
 
 // Intro
@@ -284,22 +338,21 @@ section.intro div.intro_background {
 	position: absolute;
 	top: 0;
 	left: 50%;
-	transform: translateX(-50%);
+	transform: translate(-50%, -2%);
 	width: 100%;
-	height: 101%; // avoid thin white bottom gap
-	// height: 110%;
+	height: 106%; // avoid thin white bottom gap
 	background-image: url('../img/cfc_background.png');
 	background-repeat: no-repeat;
 	background-position: center center;
 	background-size: cover;
 }
-section.intro div.wrap_content h2 {
+section.intro h2 {
 	margin-bottom: 3.2rem;
 	font-family: 'Sanchez';
 	font-size: 3.6rem;
 	line-height: 1.2;
 }
-section.intro div.wrap_content p {
+section.intro p {
 	margin-bottom: 3.2rem;
 	font-size: 1.5rem;
 }
@@ -313,88 +366,75 @@ section.intro a.button:hover {
 	border-color: $hsl_L100;
 }
 section.intro a.button:active {
-	opacity: 0.8;
+	color: $hsl_L90;
+	border-color: $hsl_L90;
 }
 // --- Intro Image --- \\
 section.intro div.wrap_phones-outer {
-	margin: 4rem auto 0 auto;
 	width: 28.8rem;
 	height: 26.8rem;
+	transform: translateX(0.2rem);
 }
 section.intro div.wrap_phones-outer div.wrap_phones-inner {
-	position: relative;
-	z-index: 1;
 	height: 32.5rem;
 }
-section.intro div.wrap_phones-outer div.wrap_phones-inner img.img_intro-ios,
 section.intro div.wrap_phones-outer div.wrap_phones-inner img.img_intro-android {
-	position: absolute;
-	bottom: 0;
-}
-section.intro div.wrap_phones-outer div.wrap_phones-inner img.img_intro-android {
-	z-index: 2;
 	left: 0;
 	width: 52.083333%; // 150 / 288 = 0.52083333
 }
 section.intro div.wrap_phones-outer div.wrap_phones-inner img.img_intro-ios {
-	z-index: 3;
-	right: -0.2rem;
+	right: 0;
 	width: 75.694444%; // 218 / 288 = 0.75694444
 }
-
-
-
-
 // --- Transition: Intro --- \\
-/*
 section.intro div.intro_background {
-	// transition: width 0.2s ease-in-out;
-	// transition: top 0.3s ease-in-out;
-	transition: width 0.1s linear;
+	transition: width 2s ease-out;
 }
-*/
-section.intro div.wrap_content h2 {
-	transition: opacity 0.6s ease-in-out 0s, transform 0.6s ease-in-out 0s;
-}
-section.intro div.wrap_content p {
+section.intro h2 {
 	transition: opacity 0.6s ease-in-out 0.2s, transform 0.6s ease-in-out 0.2s;
+}
+section.intro p {
+	transition: opacity 0.6s ease-in-out 0.4s, transform 0.6s ease-in-out 0.4s;
+}
+section.intro div.links_download a.download_ios {
+	transition: right 0.1s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out, opacity 0.6s ease-in-out 0.6s, transform 0.6s ease-in-out 0.6s;
+}
+section.intro div.links_download a.download_android {
+	transition: left 0.1s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out, opacity 0.6s ease-in-out 0.8s, transform 0.6s ease-in-out 0.8s;
 }
 section.intro div.wrap_phones-outer div.wrap_phones-inner img.img_intro-ios {
-	transition: opacity 0.6s ease-in-out 0.2s, transform 0.6s ease-in-out 0.2s;
+	transition: opacity 0.6s ease-in-out 0.4s, transform 0.6s ease-in-out 0.4s;
 }
 section.intro div.wrap_phones-outer div.wrap_phones-inner img.img_intro-android {
-	transition: opacity 0.6s ease-in-out 0.6s, transform 0.6s ease-in-out 0.6s;
+	transition: opacity 0.6s ease-in-out 0.8s, transform 0.6s ease-in-out 0.8s;
 }
 // --- Inactive: Intro --- \\
-html[data-load="loading"] section.intro div.wrap_content h2,
-html[data-load="loading"] section.intro div.wrap_content p {
+html[data-images="waiting"] section.intro p,
+html[data-images="waiting"] section.intro h2,
+html[data-images="waiting"] section.intro div.links_download a.button {
 	opacity: 0;
 	transform: translateY(1rem);
 }
-html[data-load="loading"] section.intro div.wrap_phones-outer div.wrap_phones-inner img.img_intro-ios,
-html[data-load="loading"] section.intro div.wrap_phones-outer div.wrap_phones-inner img.img_intro-android {
+html[data-images="waiting"] section.intro div.wrap_phones-outer div.wrap_phones-inner img.img_intro-ios,
+html[data-images="waiting"] section.intro div.wrap_phones-outer div.wrap_phones-inner img.img_intro-android {
 	opacity: 0;
 	transform: translateX(1rem);
 }
 // --- Active: Intro --- \\
-/*
-html[data-load="ready"] section.intro div.intro_background {
+html[data-images="loaded"] section.intro div.intro_background {
 	width: 110%;
 }
-*/
-html[data-load="ready"] section.intro div.wrap_content h2,
-html[data-load="ready"] section.intro div.wrap_content p {
+html[data-images="loaded"] section.intro p,
+html[data-images="loaded"] section.intro h2,
+html[data-images="loaded"] section.intro div.links_download a.button {
 	opacity: 1;
 	transform: translateY(0rem);
 }
-html[data-load="ready"] section.intro div.wrap_phones-outer div.wrap_phones-inner img.img_intro-ios,
-html[data-load="ready"] section.intro div.wrap_phones-outer div.wrap_phones-inner img.img_intro-android {
+html[data-images="loaded"] section.intro div.wrap_phones-outer div.wrap_phones-inner img.img_intro-ios,
+html[data-images="loaded"] section.intro div.wrap_phones-outer div.wrap_phones-inner img.img_intro-android {
 	opacity: 1;
 	transform: translateX(0rem);
 }
-
-
-
 
 // Share
 // ----------------------------------------------------------------------------
@@ -405,28 +445,28 @@ section.share div.wrap_img {
 	max-width: 20.2rem;
 }
 // --- Transition: Share --- \\
-section.share div.wrap_content h3 {
+section.share h3 {
 	transition: opacity 0.6s ease-in-out 0.2s, transform 0.6s ease-in-out 0.2s;
 }
-section.share div.wrap_content p {
+section.share p {
 	transition: opacity 0.6s ease-in-out 0.4s, transform 0.6s ease-in-out 0.4s;
 }
 section.share div.wrap_img {
 	transition: opacity 0.6s ease-in-out 0.6s, transform 0.6s ease-in-out 0.6s;
 }
 // --- Inactive: Share --- \\
-section.share div.wrap_content h3,
-section.share div.wrap_content p,
+section.share p,
+section.share h3,
 section.share div.wrap_img {
 	opacity: 0;
 	transform: translateY(1rem);
 }
 // --- Active: Share --- \\
-body.active_share section.share div.wrap_content h3,
-body.active_share section.share div.wrap_content p,
+body.active_share section.share p,
+body.active_share section.share h3,
 body.active_share section.share div.wrap_img {
 	opacity: 1;
-	transform: translateY(0);
+	transform: translateY(0rem);
 }
 
 // Sync
@@ -434,38 +474,26 @@ body.active_share section.share div.wrap_img {
 section.sync {
 	background-color: $hsl_blue;
 }
-section.sync div.wrap_content p br {
+section.sync p br {
 	display: none;
 }
 // --- Sync Image --- \\
 section.sync div.wrap_phones-outer {
-	margin: 4rem auto 0 auto;
 	width: 27.1rem;
 }
-section.sync div.wrap_phones-outer div.wrap_phones-inner {
-	position: relative;
-	z-index: 1;
-}
-section.sync div.wrap_phones-outer div.wrap_phones-inner img.img_sync-ios,
 section.sync div.wrap_phones-outer div.wrap_phones-inner img.img_sync-android {
-	position: absolute;
-	bottom: 0;
-}
-section.sync div.wrap_phones-outer div.wrap_phones-inner img.img_sync-android {
-	z-index: 2;
 	right: 0;
 	width: 59.778598%; // 324 / 542 = 0.59778598
 }
 section.sync div.wrap_phones-outer div.wrap_phones-inner img.img_sync-ios {
-	z-index: 3;
 	left: 0;
 	width: 65.682657%; // 356 / 542 = 0.65682657
 }
 // --- Transition: Sync --- \\
-section.sync div.wrap_content h3 {
+section.sync h3 {
 	transition: opacity 0.6s ease-in-out 0.2s, transform 0.6s ease-in-out 0.2s;
 }
-section.sync div.wrap_content p {
+section.sync p {
 	transition: opacity 0.6s ease-in-out 0.4s, transform 0.6s ease-in-out 0.4s;
 }
 section.sync div.wrap_phones-outer div.wrap_phones-inner img.img_sync-ios {
@@ -475,8 +503,8 @@ section.sync div.wrap_phones-outer div.wrap_phones-inner img.img_sync-android {
 	transition: opacity 0.6s ease-in-out 1s, transform 0.6s ease-in-out 1s;
 }
 // --- Inactive: Sync --- \\
-section.sync div.wrap_content h3,
-section.sync div.wrap_content p {
+section.sync h3,
+section.sync p {
 	opacity: 0;
 	transform: translateY(1rem);
 }
@@ -486,10 +514,10 @@ section.sync div.wrap_phones-outer div.wrap_phones-inner img.img_sync-android {
 	transform: translateX(-1rem);
 }
 // --- Active: Sync --- \\
-body.active_sync section.sync div.wrap_content h3,
-body.active_sync section.sync div.wrap_content p {
+body.active_sync section.sync h3,
+body.active_sync section.sync p {
 	opacity: 1;
-	transform: translateY(0);
+	transform: translateY(0rem);
 }
 body.active_sync section.sync div.wrap_phones-outer div.wrap_phones-inner img.img_sync-ios,
 body.active_sync section.sync div.wrap_phones-outer div.wrap_phones-inner img.img_sync-android {
@@ -506,18 +534,18 @@ section.shop div.wrap_img {
 	max-width: 17.6rem;
 }
 // --- Transition: Shop --- \\
-section.shop div.wrap_content h3 {
+section.shop h3 {
 	transition: opacity 0.6s ease-in-out 0.2s, transform 0.6s ease-in-out 0.2s;
 }
-section.shop div.wrap_content p {
+section.shop p {
 	transition: opacity 0.6s ease-in-out 0.4s, transform 0.6s ease-in-out 0.4s;
 }
 section.shop div.wrap_img {
 	transition: opacity 0.6s ease-in-out 0.6s, transform 0.6s ease-in-out 0.6s;
 }
 // --- Inactive: Shop --- \\
-section.shop div.wrap_content h3,
-section.shop div.wrap_content p {
+section.shop p,
+section.shop h3 {
 	opacity: 0;
 	transform: translateY(1rem);
 }
@@ -526,8 +554,8 @@ section.shop div.wrap_img {
 	transform: translateY(2rem);
 }
 // --- Active: Shop --- \\
-body.active_shop section.shop div.wrap_content h3,
-body.active_shop section.shop div.wrap_content p,
+body.active_shop section.shop p,
+body.active_shop section.shop h3,
 body.active_shop section.shop div.wrap_img {
 	opacity: 1;
 	transform: translateY(0);
@@ -535,8 +563,8 @@ body.active_shop section.shop div.wrap_img {
 
 // Create
 // ----------------------------------------------------------------------------
-section.create h3,
-section.create p {
+section.create p,
+section.create h3 {
 	color: $hsl_L14;
 }
 section.create h3 br:nth-child(2) {
@@ -562,9 +590,6 @@ section.create a.button:active {
 	color: lighten($hsl_red, 10%);
 	border-color: lighten($hsl_red, 30%);
 }
-
-
-
 // --- Transition: Create --- \\
 section.create h3 {
 	transition: opacity 0.6s ease-in-out 0.2s, transform 0.6s ease-in-out 0.2s;
@@ -578,8 +603,6 @@ section.create p {
 section.create a.button {
 	transition: color 0.3s ease-in-out, border-color 0.3s ease-in-out, opacity 0.6s ease-in-out 0.8s, transform 0.6s ease-in-out 0.8s;
 }
-
-
 // --- Inactive: Create --- \\
 section.create p,
 section.create h3,
@@ -596,9 +619,6 @@ body.active_create section.create div.wrap_img {
 	opacity: 1;
 	transform: translateY(0);
 }
-
-
-
 
 // Available
 // ----------------------------------------------------------------------------
@@ -634,5 +654,36 @@ section.available a.button:hover {
 	border-color: $hsl_L0;
 }
 section.available a.button:active {
-	opacity: 0.8;
+	color: $hsl_L14;
+	border-color: $hsl_L14;
 }
+
+
+// --- Transition: Create --- \\
+section.available h4 {
+	transition: opacity 0.6s ease-in-out 0.2s, transform 0.6s ease-in-out 0.2s;
+}
+section.available div.wrap_svg {
+	transition: opacity 0.6s ease-in-out 0.4s, transform 0.6s ease-in-out 0.4s;
+}
+section.available div.links_download a.download_ios {
+	transition: color 0.3s ease-in-out, border-color 0.3s ease-in-out, opacity 0.6s ease-in-out 0.6s, transform 0.6s ease-in-out 0.6s;
+}
+section.available div.links_download a.download_android {
+	transition: color 0.3s ease-in-out, border-color 0.3s ease-in-out, opacity 0.6s ease-in-out 0.8s, transform 0.6s ease-in-out 0.8s;
+}
+// --- Inactive: Create --- \\
+section.available h4,
+section.available a.button,
+section.available div.wrap_svg {
+	opacity: 0;
+	transform: translateY(1rem);
+}
+// --- Active: Create --- \\
+body.active_available section.available h4,
+body.active_available section.available a.button,
+body.active_available section.available div.wrap_svg {
+	opacity: 1;
+	transform: translateY(0);
+}
+

@@ -7,4 +7,6 @@
 	:plain
 		<h6>Visit <a href="http://www.chicken.ca/" title="Chicken Farmers of Canada" target="_blank">chicken.ca</a> for more great recipes and meal ideas.</h6>
 
+= Haml::Engine.new(File.read("dev/haml/partials/_html_loader.haml")).render
+
 = Haml::Engine.new(File.read("dev/haml/partials/_doc_scripts.haml")).render
