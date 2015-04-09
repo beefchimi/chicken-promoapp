@@ -5,8 +5,8 @@ document.addEventListener('DOMContentLoaded', function() {
 	// ----------------------------------------------------------------------------
 	var elHTML            = document.documentElement,
 		elBody            = document.body,
-		transitionEvent   = whichTransitionEvent(),
-		animationEvent    = whichAnimationEvent();
+		animationEvent    = whichAnimationEvent(),
+		transitionEvent   = whichTransitionEvent();
 
 	// scroll and window variables
 	var numScrollPos       = window.pageYOffset,
@@ -38,25 +38,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	// Helper: Check when a CSS transition or animation has ended
 	// ----------------------------------------------------------------------------
-	function whichTransitionEvent() {
-
-		var trans,
-			element     = document.createElement('fakeelement'),
-			transitions = {
-				'transition'       : 'transitionend',
-				'OTransition'      : 'oTransitionEnd',
-				'MozTransition'    : 'transitionend',
-				'WebkitTransition' : 'webkitTransitionEnd'
-			}
-
-		for (trans in transitions) {
-			if (element.style[trans] !== undefined) {
-				return transitions[trans];
-			}
-		}
-
-	}
-
 	function whichAnimationEvent() {
 
 		var anim,
@@ -71,6 +52,25 @@ document.addEventListener('DOMContentLoaded', function() {
 		for (anim in animations) {
 			if (element.style[anim] !== undefined) {
 				return animations[anim];
+			}
+		}
+
+	}
+
+	function whichTransitionEvent() {
+
+		var trans,
+			element     = document.createElement('fakeelement'),
+			transitions = {
+				'transition'       : 'transitionend',
+				'OTransition'      : 'oTransitionEnd',
+				'MozTransition'    : 'transitionend',
+				'WebkitTransition' : 'webkitTransitionEnd'
+			}
+
+		for (trans in transitions) {
+			if (element.style[trans] !== undefined) {
+				return transitions[trans];
 			}
 		}
 
@@ -118,6 +118,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 
 	}
+
 
 	// waitForImages: Wait until images are loaded
 	// ----------------------------------------------------------------------------
@@ -195,6 +196,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		}
 
+		// start tracking sections once we have them all measured
 		trackSection();
 
 	}
@@ -226,6 +228,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	function introScroll() {
 
 		// if the current scroll position is less than the starting position of section.share
+		// and our window width is greater than 960px
 		if (numScrollPos < arrSectionData[2].numStart && numWindowWidth >= 960) {
 
 			numIntroScrollPos = numScrollPos / numDocumentHeight * 100;
@@ -272,6 +275,28 @@ document.addEventListener('DOMContentLoaded', function() {
 		}, 500, 'unique string');
 
 	}, false);
+
+
+
+
+
+/*
+var standalone = window.navigator.standalone,
+	userAgent = window.navigator.userAgent.toLowerCase(),
+	safari = /safari/.test( userAgent ),
+	ios = /iphone|ipod|ipad/.test( userAgent );
+
+if (ios) {
+	if ( !standalone && !safari ) {
+		alert('uiwebview');
+	} else {
+		alert('ios, but not uiwebview');
+	}
+} else {
+	alert('not ios');
+}
+*/
+
 
 
 	// Initialize Primary Functions

@@ -43,6 +43,12 @@ div.loader_overlay {
 		transform: rotate(360deg);
 	}
 }
+@keyframes svgpath {
+	to {
+		opacity: 1;
+		stroke-dashoffset: 0;
+	}
+}
 
 /*
 // --- FOUT --- \\
@@ -148,7 +154,7 @@ html[data-images="loaded"] div.loader_overlay {
 // Buttons
 // ----------------------------------------------------------------------------
 a.button {
-	display: table; // inline-block does not allow margin centering
+	display: inline-block; // inline-block does not allow margin centering, table does not allow transitions in FF
 	margin: 0 auto;
 	padding: 1.6rem;
 }
@@ -641,8 +647,84 @@ section.available div.wrap_svg {
 	margin-right: auto;
 	max-width: 42.2rem;
 }
-section.available div.wrap_svg svg {
+// --- SVG Devices --- \\
+svg.ui_devices circle.camera,
+svg.ui_devices path.logo_apple,
+svg.ui_devices path.logo_android {
 	fill: $hsl_L100;
+}
+svg.ui_devices path.speaker,
+svg.ui_devices path.button_home,
+svg.ui_devices path.button_left,
+svg.ui_devices path.button_right,
+svg.ui_devices path.button_middle,
+svg.ui_devices path.frame_inside,
+svg.ui_devices path.frame_outside {
+	stroke: $hsl_L100;
+}
+// + ios tablet + \\
+svg.ui_devices g.ios_tablet path.button_home {
+	stroke-dasharray: 23.56487274169922;
+	stroke-dashoffset: 23.56487274169922;
+}
+svg.ui_devices g.ios_tablet path.frame_inside {
+	stroke-dasharray: 470.7919921875;
+	stroke-dashoffset: 470.7919921875;
+}
+svg.ui_devices g.ios_tablet path.frame_outside {
+	stroke-dasharray: 537.3404541015625;
+	stroke-dashoffset: 537.3404541015625;
+}
+// + ios phone + \\
+svg.ui_devices g.ios_phone path.speaker {
+	stroke-dasharray: 9.188003540039062;
+	stroke-dashoffset: 9.188003540039062;
+}
+svg.ui_devices g.ios_phone path.button_home {
+	stroke-dasharray: 23.565265655517578;
+	stroke-dashoffset: 23.565265655517578;
+}
+svg.ui_devices g.ios_phone path.frame_inside {
+	stroke-dasharray: 215.50001525878906;
+	stroke-dashoffset: 215.50001525878906;
+}
+svg.ui_devices g.ios_phone path.frame_outside {
+	stroke-dasharray: 280.9205322265625;
+	stroke-dashoffset: 280.9205322265625;
+}
+// + android tablet + \\
+svg.ui_devices g.android_tablet path.button_home {
+	stroke-dasharray: 35.70734786987305;
+	stroke-dashoffset: 35.70734786987305;
+}
+svg.ui_devices g.android_tablet path.frame_inside {
+	stroke-dasharray: 472;
+	stroke-dashoffset: 472;
+}
+svg.ui_devices g.android_tablet path.frame_outside {
+	stroke-dasharray: 536.7245483398438;
+	stroke-dashoffset: 536.7245483398438;
+}
+// + android phone + \\
+svg.ui_devices g.android_phone path.button_left {
+	stroke-dasharray: 21.363834381103516;
+	stroke-dashoffset: 21.363834381103516;
+}
+svg.ui_devices g.android_phone path.button_right {
+	stroke-dasharray: 21.364356994628906;
+	stroke-dashoffset: 21.364356994628906;
+}
+svg.ui_devices g.android_phone path.button_middle {
+	stroke-dasharray: 27.935977935791016;
+	stroke-dashoffset: 27.935977935791016;
+}
+svg.ui_devices g.android_phone path.frame_inside {
+	stroke-dasharray: 232.5419921875;
+	stroke-dashoffset: 232.5419921875;
+}
+svg.ui_devices g.android_phone path.frame_outside {
+	stroke-dasharray: 284.62054443359375;
+	stroke-dashoffset: 284.62054443359375;
 }
 // --- Available Buttons --- \\
 section.available a.button {
@@ -657,14 +739,14 @@ section.available a.button:active {
 	color: $hsl_L14;
 	border-color: $hsl_L14;
 }
-
-
 // --- Transition: Create --- \\
 section.available h4 {
 	transition: opacity 0.6s ease-in-out 0.2s, transform 0.6s ease-in-out 0.2s;
 }
-section.available div.wrap_svg {
-	transition: opacity 0.6s ease-in-out 0.4s, transform 0.6s ease-in-out 0.4s;
+svg.ui_devices circle.camera,
+svg.ui_devices path.logo_apple,
+svg.ui_devices path.logo_android {
+	transition: opacity 0.6s ease-in-out 2s;
 }
 section.available div.links_download a.download_ios {
 	transition: color 0.3s ease-in-out, border-color 0.3s ease-in-out, opacity 0.6s ease-in-out 0.6s, transform 0.6s ease-in-out 0.6s;
@@ -674,16 +756,39 @@ section.available div.links_download a.download_android {
 }
 // --- Inactive: Create --- \\
 section.available h4,
-section.available a.button,
-section.available div.wrap_svg {
+section.available a.button {
 	opacity: 0;
 	transform: translateY(1rem);
 }
+svg.ui_devices circle.camera,
+svg.ui_devices path.logo_apple,
+svg.ui_devices path.logo_android,
+svg.ui_devices path.speaker,
+svg.ui_devices path.button_home,
+svg.ui_devices path.button_left,
+svg.ui_devices path.button_right,
+svg.ui_devices path.button_middle,
+svg.ui_devices path.frame_inside,
+svg.ui_devices path.frame_outside {
+	opacity: 0;
+}
 // --- Active: Create --- \\
 body.active_available section.available h4,
-body.active_available section.available a.button,
-body.active_available section.available div.wrap_svg {
+body.active_available section.available a.button {
 	opacity: 1;
 	transform: translateY(0);
 }
-
+body.active_available svg.ui_devices path.speaker,
+body.active_available svg.ui_devices path.button_home,
+body.active_available svg.ui_devices path.button_left,
+body.active_available svg.ui_devices path.button_right,
+body.active_available svg.ui_devices path.button_middle,
+body.active_available svg.ui_devices path.frame_inside,
+body.active_available svg.ui_devices path.frame_outside {
+	animation: svgpath 1.6s ease-in-out 0.4s alternate forwards;
+}
+body.active_available svg.ui_devices circle.camera,
+body.active_available svg.ui_devices path.logo_apple,
+body.active_available svg.ui_devices path.logo_android {
+	opacity: 1;
+}
