@@ -153,12 +153,12 @@ html[data-images="loaded"] div.loader_overlay {
 
 // Buttons
 // ----------------------------------------------------------------------------
-a.button {
+.button {
 	display: inline-block; // inline-block does not allow margin centering, table does not allow transitions in FF
 	margin: 0 auto;
 	padding: 1.6rem;
 }
-a.button span {
+.button span {
 	display: inline-block;
 	font-family: 'Sanchez';
 	font-size: 1.8rem;
@@ -245,13 +245,22 @@ footer a.wrap_svg {
 	margin-left: auto;
 	margin-right: auto;
 }
+footer p,
 footer h6 {
-	max-width: 24rem;
-	margin-left: auto;
-	margin-right: auto;
 	font-family: 'Sanchez';
 	font-size: 1.5rem;
 	line-height: 1.2;
+}
+footer h6 {
+	margin-bottom: 3.2rem;
+	margin-left: auto;
+	margin-right: auto;
+}
+html[lang="en"] footer h6 {
+	max-width: 24rem;
+}
+html[lang="fr"] footer h6 {
+	max-width: 28rem;
 }
 footer h6 a {
 	color: $hsl_L0;
@@ -312,8 +321,10 @@ section:not(.create) h3 {
 	color: $hsl_L100;
 }
 section:not(.intro) p {
-	font-size: 1.5rem;
 	color: $hsl_L100;
+}
+section:not(.intro) p:not(.legal) {
+	font-size: 1.5rem;
 }
 // --- Two Phones --- \\
 div.wrap_phones-outer {
@@ -409,10 +420,10 @@ section.intro div.links_download a.download_android {
 	transition: left 0.1s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out, opacity 0.6s ease-in-out 0.8s, transform 0.6s ease-in-out 0.8s;
 }
 section.intro div.wrap_phones-outer div.wrap_phones-inner img.img_intro-ios {
-	transition: opacity 0.6s ease-in-out 0.4s, transform 0.6s ease-in-out 0.4s;
+	transition: opacity 0.4s ease-in-out 0.4s, transform 0.6s ease-in-out 0.4s;
 }
 section.intro div.wrap_phones-outer div.wrap_phones-inner img.img_intro-android {
-	transition: opacity 0.6s ease-in-out 0.8s, transform 0.6s ease-in-out 0.8s;
+	transition: opacity 0.6s ease-in-out 0.6s, transform 0.6s ease-in-out 0.6s;
 }
 // --- Inactive: Intro --- \\
 html[data-images="waiting"] section.intro p,
@@ -421,10 +432,13 @@ html[data-images="waiting"] section.intro div.links_download a.button {
 	opacity: 0;
 	transform: translateY(1rem);
 }
-html[data-images="waiting"] section.intro div.wrap_phones-outer div.wrap_phones-inner img.img_intro-ios,
+html[data-images="waiting"] section.intro div.wrap_phones-outer div.wrap_phones-inner img.img_intro-ios {
+	opacity: 0;
+	transform: translateX(0.8rem);
+}
 html[data-images="waiting"] section.intro div.wrap_phones-outer div.wrap_phones-inner img.img_intro-android {
 	opacity: 0;
-	transform: translateX(1rem);
+	transform: translateX(1.2rem);
 }
 // --- Active: Intro --- \\
 html[data-images="loaded"] section.intro div.intro_background {
@@ -569,6 +583,9 @@ body.active_shop section.shop div.wrap_img {
 
 // Create
 // ----------------------------------------------------------------------------
+section.create article {
+	position: relative;
+}
 section.create p,
 section.create h3 {
 	color: $hsl_L14;
@@ -576,15 +593,33 @@ section.create h3 {
 section.create h3 br:nth-child(2) {
 	display: none;
 }
+section.create div.wrap_svg {
+	display: none;
+	position: absolute;
+	top: 14rem;
+	left: 0;
+	width: 11rem; // 14.2rem;
+}
+section.create div.wrap_svg svg {
+	fill: $hsl_red;
+}
 section.create div.wrap_img {
+	position: relative;
 	margin-bottom: 4rem;
 	max-width: 41.6rem;
+}
+section.create div.wrap_img img.img_create-ios {
+	position: absolute;
+	right: 0.2rem;
+	bottom: 0;
+	width: 16.586538%; // 138 / 832 = 0.16586538
+	max-width: 13.8rem;
 }
 section.create p {
 	margin-bottom: 4rem;
 }
 // --- Create Buttons --- \\
-section.create a.button {
+section.create .button {
 	color: $hsl_L14;
 	border: 0.2rem solid $hsl_L14;
 }
@@ -603,27 +638,41 @@ section.create h3 {
 section.create div.wrap_img {
 	transition: opacity 0.6s ease-in-out 0.4s, transform 0.6s ease-in-out 0.4s;
 }
+section.create div.wrap_svg,
+section.create div.wrap_img img.img_create-ios {
+	transition: opacity 0.6s ease-in-out 0.8s, transform 0.6s ease-in-out 0.8s;
+}
 section.create p {
 	transition: opacity 0.6s ease-in-out 0.6s, transform 0.6s ease-in-out 0.6s;
 }
-section.create a.button {
+section.create .button {
 	transition: color 0.3s ease-in-out, border-color 0.3s ease-in-out, opacity 0.6s ease-in-out 0.8s, transform 0.6s ease-in-out 0.8s;
 }
 // --- Inactive: Create --- \\
 section.create p,
 section.create h3,
-section.create a.button,
+section.create .button,
+section.create div.wrap_svg,
 section.create div.wrap_img {
 	opacity: 0;
 	transform: translateY(1rem);
 }
+section.create div.wrap_img img.img_create-ios {
+	opacity: 0;
+	transform: translateX(-0.6rem);
+}
 // --- Active: Create --- \\
 body.active_create section.create p,
 body.active_create section.create h3,
-body.active_create section.create a.button,
+body.active_create section.create .button,
+body.active_create section.create div.wrap_svg,
 body.active_create section.create div.wrap_img {
 	opacity: 1;
-	transform: translateY(0);
+	transform: translateY(0rem);
+}
+body.active_create section.create div.wrap_img img.img_create-ios {
+	opacity: 1;
+	transform: translateX(0rem);
 }
 
 // Available
@@ -646,6 +695,15 @@ section.available div.wrap_svg {
 	margin-left: auto;
 	margin-right: auto;
 	max-width: 42.2rem;
+}
+section.available div.links_download {
+	margin-bottom: 4rem;
+}
+section.available p.legal {
+	font-size: 1.3rem;
+}
+section.available p.legal br {
+	display: none;
 }
 // --- SVG Devices --- \\
 svg.ui_devices circle.camera,
@@ -754,8 +812,12 @@ section.available div.links_download a.download_ios {
 section.available div.links_download a.download_android {
 	transition: color 0.3s ease-in-out, border-color 0.3s ease-in-out, opacity 0.6s ease-in-out 0.8s, transform 0.6s ease-in-out 0.8s;
 }
+section.available p.legal {
+	transition: opacity 0.6s ease-in-out 1s, transform 0.6s ease-in-out 1s;
+}
 // --- Inactive: Create --- \\
 section.available h4,
+section.available p.legal,
 section.available a.button {
 	opacity: 0;
 	transform: translateY(1rem);
@@ -774,6 +836,7 @@ svg.ui_devices path.frame_outside {
 }
 // --- Active: Create --- \\
 body.active_available section.available h4,
+body.active_available section.available p.legal,
 body.active_available section.available a.button {
 	opacity: 1;
 	transform: translateY(0);

@@ -142,11 +142,11 @@
 	section.share div.wrap_content,
 	section.shop div.wrap_content {
 		opacity: 0;
-		transform: translate(-4rem, -50%);
+		transform: translate(-2rem, -50%);
 	}
 	section.sync div.wrap_content {
 		opacity: 0;
-		transform: translate(4rem, -50%);
+		transform: translate(2rem, -50%);
 	}
 	// + active + \\
 	body.active_share section.share div.wrap_content,
@@ -156,7 +156,7 @@
 		transform: translate(0rem, -50%);
 	}
 	// + exclusions + \\
-	section:not(.intro) p {
+	section:not(.intro) p:not(.legal) {
 		font-size: 1.6rem;
 	}
 	// --- Two Phones --- \\
@@ -211,6 +211,15 @@
 	section.create h3 br:nth-child(2) {
 		display: block;
 	}
+	section.create div.wrap_svg {
+		display: block;
+	}
+
+	// Available
+	// ----------------------------------------------------------------------------
+	section.available p.legal br {
+		display: block;
+	}
 
 }
 
@@ -222,7 +231,7 @@
 	// Buttons
 	// ----------------------------------------------------------------------------
 	// --- Two Column Links --- \\
-	div.links_download a.button span {
+	html[lang="en"] div.links_download a.button span {
 		font-size: 2.4rem;
 	}
 
@@ -349,6 +358,14 @@
 	// ----------------------------------------------------------------------------
 	section.sync p br {
 		display: block;
+	}
+
+	// Create
+	// ----------------------------------------------------------------------------
+	section.create div.wrap_svg {
+		top: 6rem;
+		left: -13.2rem;
+		width: 14.2rem;
 	}
 
 }

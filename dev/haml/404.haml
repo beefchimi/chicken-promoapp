@@ -8,26 +8,39 @@
 
 	%body#error.error404
 
-		= Haml::Engine.new(File.read("dev/haml/partials/_html_header.haml")).render
+		%header#header
+
+			%div{"data-container" => "width_1200"}
+
+				%h1.visuallyhidden Raised by a Canadian Chicken Farmers
+				.wrap_svg
+					%svg.logo_raised{:viewBox => "0 0 58 64"}
+						%use{"xlink:href" => "#logo_raised"}
+
+				%a.button_circle{:href => "http://www.chicken.ca", :title => "Visit chicken.ca"}
+					%span Visit chicken.ca
 
 		%main{:role => "main"}
 
-			%section.page_articles.internal_articles{"data-container" => "width-padding_1440"}
+			%section#intro.intro
 
-				%article
+				#intro_background.intro_background
+					%img#preload_background.visuallyhidden{:src => "assets/img/cfc_background.png", :alt => ""}
 
-					%div{"data-container" => "width_868"}
+				%article{"data-container" => "width_1200"}
 
-						.wrap_svg.article_svg
-							%svg.ui_safety{:viewBox => "0 0 64 64"}
-								%use{"xlink:href" => "#ui_safety"}
+					.wrap_content
 
-						%h2 Page not found!
+						%h2 Error 404. Page Not Found.
 
-						%p
-							:plain
-								It appears the page you are looking for does not exist. Please return to <a href="index.html" title="Return Home">northman.co</a> or <a href="#" class="email_secret email_info" title="Send us an email">shoot us an email</a> if you can&apos;t find what you&apos;re looking for. We&apos;d be happy to help.
+						%p Something has gone wrong... it would appear that the page you are looking for does not exist. Since you are here, why not download our shopping app? Click the links below to download our app for iOS and Android devices.
 
-						%a.btn_rnd.brd_orange.email_secret.email_info{:href => "#", :title => "Get In Touch"} Get In Touch
+						= Haml::Engine.new(File.read("dev/haml/partials/_html_links-download.haml")).render
+
+					.wrap_phones-outer
+						.wrap_phones-inner
+							%img.img_intro-placeholder.placeholder{:src => "assets/img/cfc_intro-placeholder.png", :alt => ""}
+							%img#img_intro-android.img_intro-android.back{:src => "assets/img/cfc_intro-android.png", :alt => "Download the app on Android"}
+							%img#img_intro-ios.img_intro-ios.front{:src => "assets/img/cfc_intro-ios.png", :alt => "Download the app on iOS"}
 
 		= Haml::Engine.new(File.read("dev/haml/partials/_html_footer.haml")).render

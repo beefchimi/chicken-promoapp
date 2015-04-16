@@ -5,10 +5,17 @@
 		:plain
 			<h3>Create Lists with<br> Our<br> Desktop Site</h3>
 
+		%h6.visuallyhidden Coming This Summer!
+		.wrap_svg
+			%svg.badge_summer{:viewBox => "0 0 142 142"}
+				%use{"xlink:href" => "#badge_summer"}
+
 		.wrap_img
-			%img{:src => "assets/img/cfc_create.png", :alt => "Create lists on every device"}
+			%img.img_create-imac{:src => "assets/img/cfc_create-imac.png", :alt => "Create lists on your desktop computer..."}
+			%img.img_create-ios{:src => "assets/img/cfc_create-ios.png", :alt => "as well as your mobile device"}
 
 		%p Browsing for recipe ideas on your desktop and want to create a shopping list? No problem. Our desktop version of the app allows you to create lists online that will automatically sync to your app.
 
-		%a.button{:href => "#", :title => "Try it Now"}
-			%span Try it Now
+		-# Try It Now
+		.button{:href => "#", :title => "Coming Soon"}
+			%span Coming Soon

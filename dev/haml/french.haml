@@ -1,0 +1,187 @@
+!!!
+/[if IE 9] <html class="ie9" lang="en">
+<!--[if gt IE 9]><!-->
+%html{:lang => "fr", "data-images" => "waiting", "data-page" => "loading"}<>
+	<!--<![endif]-->
+
+
+	-# INCLUDE: DOC HEAD
+	%head
+
+		%meta{:charset => "utf-8"}
+		%meta{"http-equiv" => "X-UA-Compatible", :content => "IE=edge"}
+
+		%title Magasiner avec poulet.ca
+
+		%meta{:name => "description", :content => "Faire son &eacute;picerie n&rsquo;a jamais &eacute;t&eacute; aussi facile."}
+		%meta{:name => "viewport", :content => "width=device-width, initial-scale=1"}
+
+		%meta{:name => "apple-mobile-web-app-capable", :content => "yes"}
+		%meta{:name => "apple-mobile-web-app-status-bar-style", :content => "black"}
+
+		-# !!! REMOVE FOR LIVE !!!
+		%meta{:name => "robots", :content => "noindex, nofollow"}
+
+		%link{:rel => "stylesheet", :href => "assets/css/styles.min.css?v=2"}
+
+		%script
+			= Haml::Engine.new(File.read("dev/haml/partials/_js_fonts.haml")).render
+
+
+	%body
+
+
+		-# INCLUDE: HTML HEADER
+		%header#header
+
+			%div{"data-container" => "width_1200"}
+
+				%h1.visuallyhidden &Eacute;lev&eacute; par un Producteur Canadien
+				.wrap_svg
+					%svg.logo_raised-fr{:viewBox => "0 0 58 64"}
+						%use{"xlink:href" => "#logo_raised-fr"}
+
+				%a.button_circle{:href => "http://www.poulet.ca", :title => "Visitez poulet.ca"}
+					%span Visitez poulet.ca
+
+			%a.toggle_lang{:href => "index.html", :title => "English"} English
+
+
+		%main{:role => "main"}
+
+
+			-# INCLUDE: SEC INTRO
+			%section#intro.intro
+
+				#intro_background.intro_background
+					%img#preload_background.visuallyhidden{:src => "assets/img/cfc_background.png", :alt => ""}
+
+				%article{"data-container" => "width_1200"}
+
+					.wrap_content
+
+						%h2 Magasiner avec poulet.ca
+
+						%p Faire son &eacute;picerie n&rsquo;a jamais &eacute;t&eacute; aussi facile. Notre application vous permet de cr&eacute;er autant de listes que vous voulez, de les partager avec n&rsquo;importe qui en tout temps et inclut la synchronisation en temps r&eacute;el; vous &ecirc;tes ainsi toujours &agrave; jour. Notre application est multiplateforme, les utilisateurs d&rsquo;iPhone et d&rsquo;Android peuvent donc partager, synchroniser et magasiner en tout temps, n&rsquo;importe o&ugrave;.
+
+						.links_download.clearfix{"data-container" => "width_520"}
+
+							%a.button.download_ios{:href => "https://itunes.apple.com/ca/app/shopping-chicken.ca-grocery/id892281693?mt=8", :title => "T&eacute;l&eacute;charger maintenant pour iOS"}
+								:plain
+									<span>T&eacute;l&eacute;charger maintenant<br> pour iOS</span>
+
+							%a.button.download_android{:href => "https://play.google.com/store/apps/details?id=ca.chicken.shopping", :title => "T&eacute;l&eacute;charger maintenant pour Android"}
+								:plain
+									<span>T&eacute;l&eacute;charger maintenant<br> pour Android</span>
+
+					.wrap_phones-outer
+						.wrap_phones-inner
+							%img.img_intro-placeholder.placeholder{:src => "assets/img/cfc_intro-placeholder.png", :alt => ""}
+							%img#img_intro-android.img_intro-android.back{:src => "assets/img/cfc_intro-android-fr.png", :alt => ""}
+							%img#img_intro-ios.img_intro-ios.front{:src => "assets/img/cfc_intro-ios-fr.png", :alt => ""}
+
+
+			-# INCLUDE: SEC SHARE
+			%section#share.share
+
+				%article{"data-container" => "width_1200"}
+
+					.wrap_content
+						%h3 Partager
+						%p Vous avez cr&eacute;&eacute; une liste de magasinage pour le souper, mais vous n&rsquo;avez plus le temps d&rsquo;aller faire l&rsquo;&eacute;picerie. Partagez facilement votre liste avec autant de membres de votre famille que vous voulez et laissez-les s&rsquo;en occuper.
+
+					.wrap_img
+						%img#img_share.img_share{:src => "assets/img/cfc_share-fr.png", :alt => ""}
+
+
+			-# INCLUDE: SEC SYNC
+			%section#sync.sync
+
+				%article{"data-container" => "width_1200"}
+
+					.wrap_content
+						%h3 Synchroniser
+						%p Vous avez cr&eacute;&eacute; une liste et l&rsquo;avez partag&eacute;e, mais vous d&eacute;cidez que vous avez le temps d&rsquo;aller chercher du lait &agrave; votre retour &agrave; la maison. Alors que faire ? Gr&acirc;ce &agrave; notre synchronisation en temps r&eacute;el, vous n&rsquo;avez aucun souci &agrave; vous faire. Si vous ajoutez ou supprimez un article de votre liste, toutes les personnes avec lesquelles vous avez partag&eacute; votre liste recevront un avis en temps r&eacute;el.
+
+					.wrap_phones-outer
+						.wrap_phones-inner
+							%img.img_sync-placeholder.placeholder{:src => "assets/img/cfc_sync-placeholder.png", :alt => ""}
+							%img#img_sync-android.img_sync-android.back{:src => "assets/img/cfc_sync-android-fr.png", :alt => ""}
+							%img#img_sync-ios.img_sync-ios.front{:src => "assets/img/cfc_sync-ios-fr.png", :alt => ""}
+
+
+			-# INCLUDE: SEC SHOP
+			%section#shop.shop
+
+				%article{"data-container" => "width_1200"}
+
+					.wrap_content
+						%h3 Magasiner
+						%p Notre base de donn&eacute;es contient plus de 350 articles d&rsquo;&eacute;picerie achet&eacute;s fr&eacute;quemment et cat&eacute;goris&eacute;s pour vous afin de faciliter votre magasinage, en suivant l&rsquo;am&eacute;nagement de l&rsquo;&eacute;picerie. Vous ne trouvez pas un article ? Vous pouvez cr&eacute;er des listes personnalis&eacute;es et les cat&eacute;goriser en cons&eacute;quence.
+
+					.wrap_img
+						%img#img_shop.img_shop{:src => "assets/img/cfc_shop-fr.png", :alt => ""}
+
+
+			-# INCLUDE: SEC CREATE
+			%section#create.create
+
+				%article{"data-container" => "width_768"}
+
+					:plain
+						<h3>Cr&eacute;er des listes gr&acirc;ce &agrave; notre site web principal</h3>
+
+					%h6.visuallyhidden Venir cet &eacute;t&eacute;
+					.wrap_svg
+						%svg.badge_summer-fr{:viewBox => "0 0 142 142"}
+							%use{"xlink:href" => "#badge_summer-fr"}
+
+					.wrap_img
+						%img.img_create-imac{:src => "assets/img/cfc_create-imac-fr.png", :alt => ""}
+						%img.img_create-ios{:src => "assets/img/cfc_create-ios-fr.png", :alt => ""}
+
+					%p Vous cherchez des id&eacute;es de recettes sur votre bureau et vous voulez cr&eacute;er une liste de magasinage ? Pas de probl&egrave;me. Notre version bureautique de l&rsquo;application vous permet de cr&eacute;er des listes en ligne qui se synchroniseront automatiquement avec votre application.
+
+					-# Essayez-le maintenant
+					.button{:href => "#", :title => "&Agrave; venir bient&ocirc;t"}
+						%span &Agrave; venir bient&ocirc;t
+
+
+			-# INCLUDE: SEC AVAILABLE
+			%section#available.available
+
+				%article{"data-container" => "width_1200"}
+
+					%h4 Offert pour les iPhone 5 et versions sup&eacute;rieures et Android 4.0.3 et versions sup&eacute;rieures. Offert &eacute;galement pour les tablettes iPad et Androids.
+
+					.wrap_svg
+						= Haml::Engine.new(File.read("dev/haml/partials/_svg_ui-devices.haml")).render
+
+					.links_download.clearfix{"data-container" => "width_520"}
+
+						%a.button.download_ios{:href => "https://itunes.apple.com/ca/app/shopping-chicken.ca-grocery/id892281693?mt=8", :title => "T&eacute;l&eacute;charger maintenant pour iOS"}
+							:plain
+								<span>T&eacute;l&eacute;charger maintenant<br> pour iOS</span>
+
+						%a.button.download_android{:href => "https://play.google.com/store/apps/details?id=ca.chicken.shopping", :title => "T&eacute;l&eacute;charger maintenant pour Android"}
+							:plain
+								<span>T&eacute;l&eacute;charger maintenant<br> pour Android</span>
+
+					:plain
+						<p class="legal">Apple, iPad et iPhone sont des marques de commerce d’Apple Inc., enregistr&eacute;es aux &Eacute;tats-Unis et dans d’autres pays.<br> L’App Store est une marque de service d’Apple Inc.</p>
+
+
+		-# INCLUDE: HTML FOOTER
+		%footer#footer{"data-container" => "width_768"}
+
+			%a.wrap_svg{:href => "http://www.poulet.ca/", :title => "Producteurs de poulet du Canada", :target => "_blank"}
+				%svg.logo_cfc{:viewBox => "0 0 64 50"}
+					%use{"xlink:href" => "#logo_cfc"}
+
+			:plain
+				<h6>Consultez le site <a href="http://www.poulet.ca/" title="Producteurs de poulet du Canada" target="_blank">poulet.ca</a> pour obtenir d’excellentes recettes et id&eacute;es de repas</h6>
+				<p>&copy; 2015 Producteurs de poulet du Canada</p>
+
+
+		= Haml::Engine.new(File.read("dev/haml/partials/_html_loader.haml")).render
+		= Haml::Engine.new(File.read("dev/haml/partials/_doc_scripts.haml")).render

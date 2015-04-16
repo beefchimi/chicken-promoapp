@@ -174,6 +174,9 @@ document.addEventListener('DOMContentLoaded', function() {
 		// calculate values for all sections
 		measureSectionHeight();
 
+		// only if Chrome iOS
+		// touchScrolling();
+
 	}
 
 
@@ -206,6 +209,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	// ----------------------------------------------------------------------------
 	function trackSection() {
 
+		// exit function if we have scrolled the entire document
 		if (boolScrolled) {
 			return;
 		}
@@ -242,9 +246,9 @@ document.addEventListener('DOMContentLoaded', function() {
 	}
 
 
-	// Window Events: On - Scroll, Resize
+	// whileScrolling: All funcitons to be executed while scrolling / touching
 	// ----------------------------------------------------------------------------
-	window.addEventListener('scroll', function(e) {
+	function whileScrolling() {
 
 		// update scroll values as we scroll
 		numScrollPos = window.pageYOffset;
@@ -257,6 +261,103 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		trackSection();
 		introScroll();
+
+	}
+
+
+/*
+	// Window Events: On Touch - Start, Move, and End
+	// ----------------------------------------------------------------------------
+	function touchScrolling() {
+
+		// exit function if this is not Chrome iOS
+		if (!navigator.userAgent.match('CriOS')) {
+			return;
+		}
+
+		// touch variables
+		var boolTouching = false,
+			dataTouchS,
+			dataTouchM,
+			dataTouchE,
+			dataTouchAll,
+			dataTouchID;
+
+		document.body.addEventListener('touchstart', function(e) {
+
+			// code adapted from:
+			// http://dropshado.ws/post/45694832906/touch-identifier-0
+
+			// dismiss after-touches
+			if (boolTouching) {
+				return;
+			}
+
+			// only care about the first touch
+			dataTouchS  = e.changedTouches[0];
+			dataTouchID = dataTouchS.identifier;
+
+			window.addEventListener('touchmove', onTouchMove, false);
+			window.addEventListener('touchend', onTouchEnd, false);
+
+			boolTouching = true;
+
+		}, false);
+
+		// iterate through touch points and stick with the initial touch contact
+		function getTouch(e) {
+
+			// cycle through every changed touch and get one that matches
+			for (var i = 0, len = e.changedTouches.length; i < len; i++) {
+
+				dataTouchAll = e.changedTouches[i];
+
+				if (dataTouchAll.identifier === dataTouchID) {
+					return dataTouchAll;
+				}
+
+			}
+
+		}
+
+		// assign touchstart to touchmove, updateColor as we move
+		function onTouchMove(e) {
+
+			dataTouchM = getTouch(e);
+
+			if (!dataTouchM) {
+				return;
+			}
+
+			whileScrolling();
+
+		}
+
+		// assign touchstart to touchend, remove touch listeners, set boolTouching back to false
+		function onTouchEnd(e) {
+
+			dataTouchE = getTouch(e);
+
+			if (!dataTouchE) {
+				return;
+			}
+
+			window.removeEventListener('touchmove', onTouchMove, false);
+			window.removeEventListener('touchend', onTouchEnd, false);
+
+			boolTouching = false;
+
+		}
+
+	}
+*/
+
+
+	// Window Events: On - Scroll, Resize
+	// ----------------------------------------------------------------------------
+	window.addEventListener('scroll', function(e) {
+
+		whileScrolling();
 
 	}, false);
 
@@ -275,28 +376,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		}, 500, 'unique string');
 
 	}, false);
-
-
-
-
-
-/*
-var standalone = window.navigator.standalone,
-	userAgent = window.navigator.userAgent.toLowerCase(),
-	safari = /safari/.test( userAgent ),
-	ios = /iphone|ipod|ipad/.test( userAgent );
-
-if (ios) {
-	if ( !standalone && !safari ) {
-		alert('uiwebview');
-	} else {
-		alert('ios, but not uiwebview');
-	}
-} else {
-	alert('not ios');
-}
-*/
-
 
 
 	// Initialize Primary Functions
