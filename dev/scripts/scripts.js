@@ -126,6 +126,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		// the rest of the code does not apply to IE9, so exit
 		if ( classie.has(elHTML, 'ie9') ) {
+			elHTML.setAttribute('data-images', 'loaded');
+			elHTML.setAttribute('data-page', 'ready');
 			return;
 		}
 
@@ -149,7 +151,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		}
 
-		// layout Packery after all images have loaded
+		// update data-images after all images have loaded
 		imagesLoaded(elBody, function(instance) {
 			elHTML.setAttribute('data-images', 'loaded');
 		});
@@ -261,6 +263,30 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		trackSection();
 		introScroll();
+
+	}
+
+
+	// gaEvents: Google Analytics Click Events
+	// ----------------------------------------------------------------------------
+	function gaEvents() {
+
+		var arrDownloadIOS     = document.getElementsByClassName('download_ios'),
+			arrDownloadAndroid = document.getElementsByClassName('download_android');
+
+		for (var i = 0; i < arrDownloadIOS.length; i++) {
+
+			// console.log(i);
+
+			arrDownloadIOS[i].addEventListener('click', function(e) {
+				ga('send', 'event', 'button', 'click', 'button_ios-' + i);
+			});
+
+			arrDownloadAndroid[i].addEventListener('click', function(e) {
+				ga('send', 'event', 'button', 'click', 'button_android-' + i);
+			});
+
+		}
 
 	}
 
@@ -382,6 +408,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	// ----------------------------------------------------------------------------
 	waitForImages();
 	pageLoaded();
+	gaEvents();
 
 
 });

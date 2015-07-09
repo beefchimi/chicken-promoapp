@@ -138,6 +138,11 @@ div.loader_overlay div.wrap_svg {
 div.loader_overlay div.wrap_svg svg {
 	fill: $hsl_blue;
 }
+html.ie9 div.loader_overlay {
+	display: none;
+	visibility: hidden;
+	z-index: 1;
+}
 // + waiting & loaded + \\
 html[data-images="waiting"],
 html[data-images="waiting"] body {
@@ -854,4 +859,14 @@ body.active_available svg.ui_devices circle.camera,
 body.active_available svg.ui_devices path.logo_apple,
 body.active_available svg.ui_devices path.logo_android {
 	opacity: 1;
+}
+html.ie9 svg.ui_devices path.speaker,
+html.ie9 svg.ui_devices path.button_home,
+html.ie9 svg.ui_devices path.button_left,
+html.ie9 svg.ui_devices path.button_right,
+html.ie9 svg.ui_devices path.button_middle,
+html.ie9 svg.ui_devices path.frame_inside,
+html.ie9 svg.ui_devices path.frame_outside {
+	opacity: 1 !important;
+	stroke-dashoffset: 0 !important;
 }
